@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1b2d520-65f2-4746-981e-48753eaa6707" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcast.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/Main.class" afterPath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" />
-    </list>
+    <list default="true" id="e1b2d520-65f2-4746-981e-48753eaa6707" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
