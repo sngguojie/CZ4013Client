@@ -2,7 +2,7 @@ package com.cz4013.client;
 
 import java.net.InetAddress;
 
-public interface BookingSystemInterface {
+public interface BookingSystem {
     public String getFacilityAvailability (String facilityName, int d);
 
     public String bookFacility (String facilityName, int d, int s, int e);
