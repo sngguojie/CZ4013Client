@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1b2d520-65f2-4746-981e-48753eaa6707" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/Main.class" afterPath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLine.class" afterPath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLineImpl$DAYS.class" afterPath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLineImpl$DAYS.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLineImpl.class" afterPath="$PROJECT_DIR$/out/production/FacilityBookingClient/com/cz4013/client/UserCommandLineImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystem.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,7 +55,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RemoteObject.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BookingSystemProxy.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#marshal#0;class#BookingSystemProxy#0" expanded="false" />
+                <element signature="method#addIntToByteArray#0;class#BookingSystemProxy#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MonitorBroadcastSkeleton.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#unmarshal#0;class#MonitorBroadcastSkeleton#0" expanded="false" />
+                <element signature="method#isEmpty#0;class#MonitorBroadcastSkeleton#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -111,8 +128,8 @@
         <option value="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastImpl.java" />
-        <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
       </list>
     </option>
   </component>
@@ -165,6 +182,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FacilityBookingClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FacilityBookingClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MonitorBroadcastSkeleton.java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -309,7 +348,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.114285715" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22083333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -377,19 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="32" column="59" lean-forward="false" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#432#454#0" expanded="true" />
-            <element signature="e#4052#4053#0" expanded="true" />
-            <element signature="e#4119#4120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -405,13 +431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6802">
           <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -456,13 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -478,6 +490,43 @@
         <state relative-caret-position="135">
           <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="32" column="59" lean-forward="false" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#432#454#0" expanded="true" />
+            <element signature="e#4052#4053#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#unmarshal#0;class#MonitorBroadcastSkeleton#0" expanded="false" />
+            <element signature="method#isEmpty#0;class#MonitorBroadcastSkeleton#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#marshal#0;class#BookingSystemProxy#0" expanded="false" />
+            <element signature="method#addIntToByteArray#0;class#BookingSystemProxy#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
