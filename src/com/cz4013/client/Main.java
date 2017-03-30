@@ -10,13 +10,18 @@ public class Main {
 //            System.out.println("Usage: java QuoteClient <hostname>");
 //            return;
 //        }
+//        String serverIP = args[0];
+//        String serverPort = args[1];
+//        InetAddress serverAddress = InetAddress.getByName(serverIP);
+        String clientAddress = InetAddress.getLocalHost().toString();
+        System.out.println(clientAddress);
+        int port = 2222;
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
-        UserCommandLine ucl = new UserCommandLineImpl();
+        UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
 
 
-//        InetAddress address = InetAddress.getLocalHost();
-//        int port = 2222;
+
 //        // get a datagram socket
 //        DatagramSocket socket = new DatagramSocket();
 //        String[] requests = {"0 0 List ",
