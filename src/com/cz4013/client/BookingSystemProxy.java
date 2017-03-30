@@ -10,6 +10,8 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     // This class performs marshalling and sends to communication module
 
+    private CommunicationModule cm;
+
     public BookingSystemProxy(){
 
     }
@@ -78,6 +80,10 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public byte[] handleRequest (byte[] requestBody){
         return null;
+    }
+
+    public void setCommunicationModule(CommunicationModule cm){
+        this.cm = cm;
     }
 
 }
