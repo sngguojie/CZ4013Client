@@ -31,7 +31,7 @@ public class CommunicationModule extends Thread {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(PORT));
         serverPort = PORT;
-        serverAddress = InetAddress.getByName("10.27.123.20");
+        serverAddress = InetAddress.getByName("10.27.40.101");
 
     }
 
