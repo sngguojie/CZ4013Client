@@ -13,6 +13,7 @@ public class Main {
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
         UserCommandLine ucl = new UserCommandLineImpl();
+        new CommunicationModule().start();
 
 
 //        InetAddress address = InetAddress.getLocalHost();
