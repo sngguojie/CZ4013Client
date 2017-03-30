@@ -19,7 +19,7 @@ public class Main {
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
-
+        new CommunicationModule().start();
 
 
 //        // get a datagram socket
