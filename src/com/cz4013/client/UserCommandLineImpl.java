@@ -15,6 +15,7 @@ public class UserCommandLineImpl implements UserCommandLine{
     public enum DAYS {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
     public ArrayList<String> confirmationIdList;
     public BookingSystem BSP;
+    public CommunicationModule cm;
 
     public UserCommandLineImpl(String address, int port){
         this.sc = new Scanner(System.in);
@@ -166,6 +167,13 @@ public class UserCommandLineImpl implements UserCommandLine{
         if (success){
             String result = monitorFacility(facility, monitorInterval);
             System.out.println(result);
+            if (result == "Success Monitor"){
+                System.out.println("Begin waiting for updates.");
+                this.cm.waitForPacket();
+            } else if (result == "Expired"){
+                System.out.println("Expired monitor.");
+                this.cm.setWaitingForPacket(false);
+            }
         }
     }
 
@@ -275,6 +283,10 @@ public class UserCommandLineImpl implements UserCommandLine{
 
     public void setBookingSystemProxy(BookingSystem BSP){
         this.BSP = BSP;
+    }
+
+    public void setCommunicationModule(CommunicationModule cm){
+        this.cm = cm;
     }
 
 }

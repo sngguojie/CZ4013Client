@@ -135,7 +135,6 @@ public class MarshalModule {
     public static byte[] addIntToByteArray(byte[] byteArray, int i, int startIndex){
         byte[] intByteArray = ByteBuffer.allocate(BYTE_CHUNK_SIZE).putInt(i).array();
         System.arraycopy(intByteArray, 0, byteArray, startIndex, intByteArray.length);
-//        System.out.println(ByteBuffer.wrap(intByteArray).getInt());
         return byteArray;
     }
 }

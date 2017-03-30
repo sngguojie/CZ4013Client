@@ -34,6 +34,7 @@ public class CommunicationModule extends Thread {
 
         serverAddress = InetAddress.getByName("10.27.123.20");
 
+
     }
     public void waitForPacket () {
         while (this.isRunning) {
@@ -324,6 +325,10 @@ public class CommunicationModule extends Thread {
 
     public void setBinder(Binder binder){
         this.binder = binder;
+    }
+
+    public void setWaitingForPacket(boolean wait){
+        this.isRunning = wait;
     }
 
 }

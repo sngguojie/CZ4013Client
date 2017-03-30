@@ -1,6 +1,7 @@
 package com.cz4013.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by danielseetoh on 3/31/17.
@@ -61,4 +62,12 @@ public class Data {
 
         return result;
     }
+    public String stringListToString(){
+        String result = "";
+        for (String s : this.stringList){
+            result += s + "\n";
+        }
+        return result;
+    }
+
 }
