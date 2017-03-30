@@ -113,7 +113,7 @@ public class CommunicationModule extends Thread {
     }
 
     private int getBytesAsHalfWord (byte[] bytes) {
-        return ((bytes[0] & 0xff) << 8) | (bytes[1] & 0xff);
+        return ((bytes[1] & 0xff) << 8) | (bytes[0] & 0xff);
     }
 
     private byte[] getHalfWordAsBytes (int halfword) {
@@ -204,9 +204,9 @@ public class CommunicationModule extends Thread {
 
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
 
-        System.out.println(MarshalModule.unmarshal(requestBody).toString());
+//        System.out.println(MarshalModule.unmarshal(requestBody).toString());
 
-        System.out.println(new String(requestBody));
+//        System.out.println(new String(requestBody));
 
         RemoteObject remoteObject = getRemoteObject(requestBody);
         return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,0,requestBody.length));
@@ -282,10 +282,10 @@ public class CommunicationModule extends Thread {
                 byte[] buf = payload;
 
                 //Debug
-                System.out.println(new String(buf));
+//                System.out.println(new String(buf));
                 byte[] temp = Arrays.copyOfRange(buf,4,buf.length-4);
-                System.out.println(new String(temp));
-                System.out.println(MarshalModule.unmarshal(temp).toString());
+//                System.out.println(new String(temp));
+//                System.out.println(MarshalModule.unmarshal(temp).toString());
                 //endDebug
 
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);

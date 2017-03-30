@@ -26,7 +26,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
         boolean idempotent = true;
         String objectReference = "BookingSystemSkeleton";
-        String methodId = "getFacilityAvailibility";
+        String methodId = "getFacilityAvailability";
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
 

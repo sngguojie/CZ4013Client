@@ -9,7 +9,8 @@ public class Main {
 
         CommunicationModule cm = new CommunicationModule();
 //        cm.start();
-        String clientAddress = InetAddress.getLocalHost().toString();
+        String[] clientAddressArr = InetAddress.getLocalHost().toString().split("/");
+        String clientAddress = clientAddressArr[clientAddressArr.length-1];
         int port = 2222;
 
 

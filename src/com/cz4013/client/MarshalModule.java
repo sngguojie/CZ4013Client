@@ -71,7 +71,7 @@ public class MarshalModule {
         while(startByte < byteArray.length){
             System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
             startByte += BYTE_CHUNK_SIZE;
-            System.out.println(startByte);
+//            System.out.println(startByte);
             if (isEmpty(chunk)){
                 break;
             }
