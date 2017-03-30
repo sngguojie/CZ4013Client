@@ -1,5 +1,6 @@
 package com.cz4013.client;
 
+import javax.management.monitor.Monitor;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -12,10 +13,11 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
 
     private final int MAX_BYTE_SIZE = 1024;
     private final int BYTE_CHUNK_SIZE = 4;
-    MonitorBroadcast mb;
+    private MonitorBroadcast mb;
+    private CommunicationModule cm;
 
     public MonitorBroadcastSkeleton(){
-        this.mb = new MonitorBroadcastImpl();
+
     }
 
     // unmarshall byte array
@@ -43,7 +45,13 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
         return result;
     }
 
+    public void setCommunicationModule(CommunicationModule cm){
+        this.cm = cm;
+    }
 
+    public void setMonitorBroadcast(MonitorBroadcast mb){
+        this.mb = mb;
+    }
 
 }
 
