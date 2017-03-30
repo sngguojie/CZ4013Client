@@ -27,8 +27,16 @@ public class UserCommandLineImpl implements UserCommandLine{
         boolean success = true;
         System.out.println("Which facility do you wish to check?");
         String facility = this.sc.nextLine();
+        if (facility.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("Which days do you wish to check? e.g. MONDAY TUESDAY");
         String days = this.sc.nextLine();
+        if (days.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         String[] daysArray = days.split(" ");
         String daysIntegers = "";
         for (String day : daysArray){
@@ -57,10 +65,22 @@ public class UserCommandLineImpl implements UserCommandLine{
         boolean success = true;
         System.out.println("Which facility do you wish to book?");
         String facility = this.sc.nextLine();
+        if (facility.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("From what time do you wish to book? (DAY/HOUR/MINUTE) e.g. MONDAY/14/45");
         String startTime = this.sc.nextLine();
+        if (startTime.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("Until what time do you wish to book? (has to be the same day) e.g. MONDAY/17/30");
         String endTime = this.sc.nextLine();
+        if (endTime.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         int day = 0;
         int startMinute = 0;
         int endMinute = 0;
@@ -100,6 +120,10 @@ public class UserCommandLineImpl implements UserCommandLine{
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
         String confirmationId = this.sc.nextLine();
+        if (confirmationId.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("For how long do you wish to offset this booking?");
         int offset = 0;
         try {
@@ -126,6 +150,10 @@ public class UserCommandLineImpl implements UserCommandLine{
         boolean success = true;
         System.out.println("Which facility do you wish to monitor?");
         String facility = this.sc.nextLine();
+        if (facility.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("For how long do you wish to monitor the facility? (In minutes)");
         int monitorInterval = 0;
         try {
@@ -158,6 +186,10 @@ public class UserCommandLineImpl implements UserCommandLine{
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
         String confirmationId = this.sc.nextLine();
+        if (confirmationId.length() == 0){
+            System.out.println("Invalid input.");
+            return;
+        }
         System.out.println("For how long do you wish to extend this booking?");
         int durationExtension = 0;
         try {

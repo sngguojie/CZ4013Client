@@ -30,7 +30,7 @@ public class CommunicationModule extends Thread {
     public CommunicationModule(String name, int PORT) throws IOException {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(PORT));
-        serverPort = PORT;
+        serverPort = 2222;
         serverAddress = InetAddress.getByName("10.27.40.101");
 
     }
@@ -199,6 +199,7 @@ public class CommunicationModule extends Thread {
     }
 
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
+        System.out.println(new String(requestBody));
         RemoteObject remoteObject = getRemoteObject(requestBody);
         return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,1,requestBody.length));
     }
@@ -270,12 +271,14 @@ public class CommunicationModule extends Thread {
             try {
                 byte[] buf = payload;
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-                socket.setSoTimeout(5000);
+                System.out.println("Send out packet");
+//                socket.setSoTimeout(5000);
                 socket.send(packet);
-
+                System.out.println("After sending packet");
                 byte[] bufIn = new byte[MAX_BYTE_SIZE];
                 packet = new DatagramPacket(bufIn, bufIn.length);
                 socket.receive(packet);
+                System.out.println("Receive packet");
                 InetAddress addressIn = packet.getAddress();
                 int portIn = packet.getPort();
                 byte[] data = packet.getData();
