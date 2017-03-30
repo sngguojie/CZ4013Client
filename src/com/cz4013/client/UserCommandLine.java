@@ -5,16 +5,16 @@ package com.cz4013.client;
  */
 public interface UserCommandLine {
 
-    String displayAvailability(String facility, String days);
+    String getFacilityAvailability(String facility, String days);
 
-    String bookFacility(String facility, int day, int startMinute, int endMInute);
+    String bookFacility(String facility, int day, int startMinute, int endMinute);
 
-    String changeBookingTime(String confirmationId, int offset);
+    String changeBooking (String confirmationId, int offset);
 
     String monitorFacility(String facility, int monitorInterval);
 
-    String getFacilities();
+    String listFacilities();
 
-    String changeBookingDuration(String confirmationId, int durationExtension);
+    String extendBooking (String confirmationId, int durationExtension);
 
 }

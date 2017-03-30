@@ -1,5 +1,6 @@
 package com.cz4013.client;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,50 +10,60 @@ import java.util.Scanner;
 public class UserCommandLineImpl implements UserCommandLine{
 
     private Scanner sc;
+    private String address;
+    private int port;
     public enum DAYS {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
     public ArrayList<String> confirmationIdList;
+    public BookingSystem BSP;
 
-    public UserCommandLineImpl(){
-        sc = new Scanner(System.in);
-        confirmationIdList = new ArrayList<String>();
+    public UserCommandLineImpl(String address, int port){
+        this.sc = new Scanner(System.in);
+        this.confirmationIdList = new ArrayList<String>();
+        this.BSP = new BookingSystemProxy();
+        this.address = address;
+        this.port = port;
         getUserInput();
     }
 
-    public void userDisplayAvailability(){
+    public void userDisplayFacilityAvailability(){
         boolean success = true;
         System.out.println("Which facility do you wish to check?");
-        String facility = sc.nextLine();
-        System.out.println("Which days do you wish to check? e.g. MONDAY TUEDAY");
-        String days = sc.nextLine();
+        String facility = this.sc.nextLine();
+        System.out.println("Which days do you wish to check? e.g. MONDAY TUESDAY");
+        String days = this.sc.nextLine();
         String[] daysArray = days.split(" ");
         String daysIntegers = "";
-        for (int i = 0; i < daysArray.length; i++){
+        for (String day : daysArray){
             try{
-                daysIntegers = daysIntegers + DAYS.valueOf(daysArray[i].toUpperCase()).ordinal() + " ";
+                daysIntegers = daysIntegers + DAYS.valueOf(day.toUpperCase()).ordinal() + " ";
             } catch (Exception e){
                 System.out.println("Invalid input.");
                 success = false;
             }
         }
 
+        // remove trailing space
+        daysIntegers = daysIntegers.substring(0, daysIntegers.length()-1);
+
         if(success){
-            String result = displayAvailability(facility, daysIntegers.substring(0, daysIntegers.length()-1));
+            String result = getFacilityAvailability(facility, daysIntegers);
             System.out.println(result);
         }
     }
 
-    public String displayAvailability(String facility, String days){
-        return "PASS";
+    public String getFacilityAvailability(String facility, String days){
+//        return "PASS";
+        return BSP.getFacilityAvailability(facility, days);
     }
 
     public void userBookFacility(){
         boolean success = true;
         System.out.println("Which facility do you wish to book?");
-        String facility = sc.nextLine();
+        String facility = this.sc.nextLine();
         System.out.println("From what time do you wish to book? (DAY/HOUR/MINUTE) e.g. MONDAY/14/45");
-        String startTime = sc.nextLine();
+        String startTime = this.sc.nextLine();
         System.out.println("Until what time do you wish to book? (has to be the same day) e.g. MONDAY/17/30");
-        String endTime = sc.nextLine();
+        String endTime = this.sc.nextLine();
         int day = 0;
         int startMinute = 0;
         int endMinute = 0;
@@ -74,6 +85,7 @@ public class UserCommandLineImpl implements UserCommandLine{
             }
         } catch (Exception e){
             System.out.println("Invalid Input");
+            success = false;
         }
 
         if (success){
@@ -83,45 +95,49 @@ public class UserCommandLineImpl implements UserCommandLine{
     }
 
     public String bookFacility(String facility, int day, int startMinute, int endMinute){
-        return "PASS";
+//        return "PASS";
+        return BSP.bookFacility(facility, day, startMinute, endMinute);
     }
 
 
-    public void userChangeBookingTime(){
+    public void userChangeBooking(){
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
-        String confirmationId = sc.nextLine();
+        String confirmationId = this.sc.nextLine();
         System.out.println("For how long do you wish to offset this booking?");
         int offset = 0;
         try {
-            offset = Integer.parseInt(sc.nextLine());
+            offset = Integer.parseInt(this.sc.nextLine());
             if (offset<0){
                 success = false;
             }
         } catch(Exception e){
             System.out.println("Invalid Input");
+            success = false;
         }
 
         if (success){
-            String result = changeBookingTime(confirmationId, offset);
+            String result = changeBooking(confirmationId, offset);
             System.out.println(result);
         }
     }
 
-    public String changeBookingTime(String confirmationId, int offset){
-        return "PASS";
+    public String changeBooking(String confirmationId, int offset){
+//        return "PASS";
+        return BSP.changeBooking(confirmationId, offset);
     }
 
     public void userMonitorFacility(){
         boolean success = true;
         System.out.println("Which facility do you wish to monitor?");
-        String facility = sc.nextLine();
+        String facility = this.sc.nextLine();
         System.out.println("For how long do you wish to monitor the facility? (In minutes)");
         int monitorInterval = 0;
         try {
-            monitorInterval = Integer.parseInt(sc.nextLine());
+            monitorInterval = Integer.parseInt(this.sc.nextLine());
         } catch (Exception e){
             System.out.println("Invalid Input");
+            success = false;
         }
 
         if (success){
@@ -131,41 +147,45 @@ public class UserCommandLineImpl implements UserCommandLine{
     }
 
     public String monitorFacility(String facility, int monitorInterval){
-        return "PASS";
+        return BSP.monitorFacility(facility, this.address, monitorInterval, this.port);
+//        return "PASS";
     }
 
-    public void userGetFacilities(){
-        String result = getFacilities();
+    public void userListFacilities(){
+        String result = listFacilities();
         System.out.println(result);
     }
 
-    public String getFacilities(){
-        return "PASS";
+    public String listFacilities(){
+        return BSP.listFacilities();
+//        return "PASS";
     }
 
-    public void userChangeBookingDuration(){
+    public void userExtendBooking(){
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
-        String confirmationId = sc.nextLine();
+        String confirmationId = this.sc.nextLine();
         System.out.println("For how long do you wish to extend this booking?");
         int durationExtension = 0;
         try {
-            durationExtension = Integer.parseInt(sc.nextLine());
+            durationExtension = Integer.parseInt(this.sc.nextLine());
             if (durationExtension<0){
                 success = false;
             }
         } catch(Exception e){
             System.out.println("Invalid Input");
+            success = false;
         }
 
         if (success){
-            String result = changeBookingTime(confirmationId, durationExtension);
+            String result = extendBooking(confirmationId, durationExtension);
             System.out.println(result);
         }
     }
 
-    public String changeBookingDuration(String confirmationId, int durationExtension){
-        return "PASS";
+    public String extendBooking(String confirmationId, int durationExtension){
+        return BSP.extendBooking(confirmationId, durationExtension);
+//        return "PASS";
     }
 
     public void userQuit(){
@@ -180,7 +200,7 @@ public class UserCommandLineImpl implements UserCommandLine{
             System.out.println("What would you like to do next?");
             printOptions();
             try{
-                input = sc.nextInt();
+                input = this.sc.nextInt();
                 sc.nextLine();
                 if (input < 0 || input > 6){
                     throw new Exception();
@@ -188,22 +208,22 @@ public class UserCommandLineImpl implements UserCommandLine{
 
                 switch(input){
                     case 1:
-                        userDisplayAvailability();
+                        userDisplayFacilityAvailability();
                         break;
                     case 2:
                         userBookFacility();
                         break;
                     case 3:
-                        userChangeBookingTime();
+                        userChangeBooking();
                         break;
                     case 4:
                         userMonitorFacility();
                         break;
                     case 5:
-                        userGetFacilities();
+                        userListFacilities();
                         break;
                     case 6:
-                        userChangeBookingDuration();
+                        userExtendBooking();
                         break;
                     case 0:
                         userQuit();
