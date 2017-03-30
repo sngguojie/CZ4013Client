@@ -28,9 +28,10 @@ public class Main {
 
         ucl.setBookingSystemProxy(BSP);
         BSP.setCommunicationModule(cm);
+        cm.setBinder(binder);
         cm.addObjectReference("BookingSystemProxy", BSP);
         cm.addObjectReference("MonitorBroadcastSkeleton", mbs);
-        cm.setBinder(binder);
+
 
         ucl.getUserInput();
 
