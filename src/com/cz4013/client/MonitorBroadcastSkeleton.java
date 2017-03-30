@@ -35,11 +35,11 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
 
         switch (methodId){
             case "displayAvailability":
-                displayAvailability(strings.get(0));
+                displayAvailability(data.stringListToString());
                 result = null;
                 break;
             default:
-                System.out.println("Default Case called.");
+                System.out.println("MethodId " + methodId + " does not exist.");
         }
 
         return result;

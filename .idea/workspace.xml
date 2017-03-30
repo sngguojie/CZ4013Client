@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1b2d520-65f2-4746-981e-48753eaa6707" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,17 +38,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonitorBroadcastSkeleton.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MonitorBroadcastSkeleton.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+            <state relative-caret-position="390">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1324#1325#0" expanded="true" />
-                <element signature="e#1352#1353#0" expanded="true" />
-                <element signature="e#1411#1412#0" expanded="true" />
-                <element signature="e#1439#1440#0" expanded="true" />
+                <element signature="e#546#547#0" expanded="true" />
+                <element signature="e#603#604#0" expanded="true" />
+                <element signature="e#1356#1357#0" expanded="true" />
+                <element signature="e#1384#1385#0" expanded="true" />
+                <element signature="e#1443#1444#0" expanded="true" />
+                <element signature="e#1471#1472#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,7 +102,7 @@
       <file leaf-file-name="BookingSystemProxy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
+            <state relative-caret-position="1320">
               <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -135,7 +135,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserCommandLineImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserCommandLineImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
@@ -175,10 +175,10 @@
       <find>receive</find>
       <find>getremoteobjectres</find>
       <find>handlepacketin</find>
-      <find>this.cm</find>
       <find>socket.receive</find>
-      <find>mb</find>
       <find>isrunning</find>
+      <find>this.cm</find>
+      <find>mb</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -188,13 +188,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/MarshalModule.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/Data.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/Main.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
       </list>
     </option>
   </component>
@@ -496,14 +496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="63" lean-forward="false" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -542,40 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4063#4064#0" expanded="true" />
-            <element signature="e#4091#4092#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="51" column="52" lean-forward="false" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1324#1325#0" expanded="true" />
-            <element signature="e#1352#1353#0" expanded="true" />
-            <element signature="e#1411#1412#0" expanded="true" />
-            <element signature="e#1439#1440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/CommunicationModule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -605,6 +563,50 @@
             <element signature="e#6576#6577#0" expanded="true" />
             <element signature="e#9856#9857#0" expanded="true" />
             <element signature="e#9884#9885#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4063#4064#0" expanded="true" />
+            <element signature="e#4091#4092#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="63" lean-forward="false" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+            <element signature="e#603#604#0" expanded="true" />
+            <element signature="e#1356#1357#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
+            <element signature="e#1443#1444#0" expanded="true" />
+            <element signature="e#1471#1472#0" expanded="true" />
           </folding>
         </state>
       </provider>
