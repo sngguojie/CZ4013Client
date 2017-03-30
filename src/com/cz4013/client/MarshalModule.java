@@ -24,9 +24,9 @@ public class MarshalModule {
 
         // leave space for messageType and requestId to be filled in by communication module
         int startByte = 0;
-        int strType = 0;
+        int strType = 1;
         int strTypePadding = 3;
-        int intType = 1;
+        int intType = 2;
         int intTypePadding = 3;
 
         for (String str : strings){
@@ -74,7 +74,7 @@ public class MarshalModule {
             }
             ByteBuffer wrapped = ByteBuffer.wrap(chunk);
             try {
-                DATATYPE dataType = DATATYPE.values()[wrapped.getInt()];
+                DATATYPE dataType = DATATYPE.values()[wrapped.getInt()-1];
                 if (dataType == DATATYPE.STRING){
                     System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
                     startByte += BYTE_CHUNK_SIZE;

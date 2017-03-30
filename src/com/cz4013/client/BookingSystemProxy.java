@@ -69,11 +69,14 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String listFacilities (){
         boolean idempotent = true;
-        String objectReference = "BookingSystem";
-        String methodId = "List";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "listFacilities";
         String[] strings = new String[]{objectReference, methodId};
         int[] ints = new int[]{};
         byte[] outBuf = MarshalModule.marshal(strings, ints);
+        byte[] inBuf = cm.sendRequest(outBuf);
+        Data data = MarshalModule.unmarshal(inBuf);
+        System.out.println(data.toString());
         return "PASS";
     };
 

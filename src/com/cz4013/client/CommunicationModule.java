@@ -30,8 +30,8 @@ public class CommunicationModule extends Thread {
     public CommunicationModule(String name, int PORT) throws IOException {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(PORT));
-        serverPort = PORT;
-        serverAddress = InetAddress.getByName("10.27.40.101");
+        serverPort = 2222;
+        serverAddress = InetAddress.getByName("10.27.123.20");
 
     }
 
@@ -199,6 +199,7 @@ public class CommunicationModule extends Thread {
     }
 
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
+        System.out.println(MarshalModule.unmarshal(requestBody).toString());
         RemoteObject remoteObject = getRemoteObject(requestBody);
         return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,1,requestBody.length));
     }
@@ -221,6 +222,7 @@ public class CommunicationModule extends Thread {
     }
 
     public byte[] sendRequest(byte[] data, InetAddress address, int port) {
+        System.out.println("sendRequest");
         try {
             byte[] payload = makePayload(data);
             return sendRequestPacketOut(payload, address, port);
@@ -261,6 +263,7 @@ public class CommunicationModule extends Thread {
         if (payload == null) {
             return null;
         }
+        System.out.println("sendRequestPacketOut");
         boolean resend = true;
         byte[] requestIdBytesOut = new byte[2];
         System.arraycopy(payload, 2, requestIdBytesOut, 0, 2);
@@ -269,13 +272,25 @@ public class CommunicationModule extends Thread {
         do {
             try {
                 byte[] buf = payload;
+
+                //Debug
+                System.out.println(new String(buf));
+                byte[] temp = Arrays.copyOfRange(buf,4,buf.length-4);
+                System.out.println(new String(temp));
+                System.out.println(MarshalModule.unmarshal(temp).toString());
+                //endDebug
+
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-                socket.setSoTimeout(5000);
+                System.out.println("b4socket.setSoTimeout(5000);");
+//                socket.setSoTimeout(5000);
+                System.out.println("socket.setSoTimeout(5000);");
                 socket.send(packet);
 
                 byte[] bufIn = new byte[MAX_BYTE_SIZE];
                 packet = new DatagramPacket(bufIn, bufIn.length);
+                System.out.println("b4socket.receive(packet)");
                 socket.receive(packet);
+                System.out.println("socket.receive(packet)");
                 InetAddress addressIn = packet.getAddress();
                 int portIn = packet.getPort();
                 byte[] data = packet.getData();
