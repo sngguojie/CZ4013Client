@@ -177,9 +177,17 @@ public class CommunicationModule extends Thread {
                 sendPacketOut(out, address, port);
                 break;
             case IDEMPOTENT_RESPONSE:
+                if (messageHistory.containsKey(inHead)) {
+                    break;
+                }
+                messageHistory.put(inHead, inBody);
                 getRemoteObjectResponse(inBody);
                 break;
             case NON_IDEMPOTENT_RESPONSE:
+                if (messageHistory.containsKey(inHead)) {
+                    break;
+                }
+                messageHistory.put(inHead, inBody);
                 getRemoteObjectResponse(inBody);
                 break;
             default:
@@ -219,13 +227,16 @@ public class CommunicationModule extends Thread {
         }
 
         // send request
-        try {
-            byte[] buf = payload;
-            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-            socket.setSoTimeout(5000);
-            socket.send(packet);
-        } catch (SocketTimeoutException ste) {
-            sendPacketOut(payload, address, port);
+        while(true) {
+            try {
+                byte[] buf = payload;
+                DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                socket.setSoTimeout(5000);
+                socket.send(packet);
+                break;
+            } catch (SocketTimeoutException ste) {
+                sendPacketOut(payload, address, port);
+            }
         }
     }
 

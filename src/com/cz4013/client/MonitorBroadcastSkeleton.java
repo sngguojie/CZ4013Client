@@ -20,6 +20,8 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast {
         int startByte = 0;
         byte[] chunk = new byte[4];
         Data data = new Data();
+        String objectReference = null;
+        String methodId = null;
 
         while(startByte < byteArray.length){
             System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
@@ -40,6 +42,15 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast {
                         System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
                         startByte += BYTE_CHUNK_SIZE;
                         str += new String(chunk);
+                    }
+                    if (objectReference == null){
+                        objectReference = str;
+                        data.setObjectReference(objectReference);
+                    } else if (methodId == null){
+                        methodId = str;
+                        data.setMethodId(methodId);
+                    } else {
+                        data.addString(str);
                     }
                     data.addString(str);
                 } else if (dataType == DATATYPE.INTEGER){
@@ -71,6 +82,8 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast {
 }
 
 class Data {
+    private String objectReference;
+    private String methodId;
     private ArrayList<String> stringList;
     private ArrayList<Integer> intList;
 
@@ -87,11 +100,27 @@ class Data {
         this.intList.add(i);
     }
 
+    public void setObjectReference(String objectReference){
+        this.objectReference = objectReference;
+    }
+
+    public void setMethodId(String methodId){
+        this.methodId = methodId;
+    }
+
     public ArrayList<String> getStringList(){
         return this.stringList;
     }
 
     public ArrayList<Integer> getIntList(){
         return this.intList;
+    }
+
+    public String getObjectReference(){
+        return this.objectReference;
+    }
+
+    public String getmethodId(){
+        return this.methodId;
     }
 }

@@ -1,5 +1,6 @@
 package com.cz4013.client;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
@@ -12,24 +13,33 @@ public class BookingSystemProxy implements BookingSystem {
 
     final int MAX_BYTE_SIZE = 1024;
     final int BYTE_CHUNK_SIZE = 4;
+    CommunicationModule communicationModule;
 
-    public BookingSystemProxy(){
-
+    public BookingSystemProxy(CommunicationModule communicationModule){
+        this.communicationModule = communicationModule;
     }
 
     public String getFacilityAvailability (String facilityName, String days){
 
         boolean idempotent = true;
-        String[] strings = new String[]{facilityName, days};
+        String objectReference = "BookingSystem";
+        String methodId = "Get";
+        String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
         byte[] outBuf = marshal(strings, ints);
-
+        try {
+            communicationModule.sendPayload(outBuf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "PASS";
     };
 
     public String bookFacility (String facilityName, int day, int startMinute, int endMinute){
         boolean idempotent = true;
-        String[] strings = new String[]{facilityName};
+        String objectReference = "BookingInterface";
+        String methodId = "Book";
+        String[] strings = new String[]{objectReference, methodId, facilityName};
         int[] ints = new int[]{day, startMinute, endMinute};
         byte[] outBuf = marshal(strings, ints);
         return "PASS";
@@ -37,7 +47,9 @@ public class BookingSystemProxy implements BookingSystem {
 
     public String changeBooking (String confirmID, int offset){
         boolean idempotent = false;
-        String[] strings = new String[]{confirmID};
+        String objectReference = "BookingInterface";
+        String methodId = "Change";
+        String[] strings = new String[]{objectReference, methodId, confirmID};
         int[] ints = new int[]{offset};
         byte[] outBuf = marshal(strings, ints);
         return "PASS";
@@ -45,7 +57,9 @@ public class BookingSystemProxy implements BookingSystem {
 
     public String monitorFacility (String facilityName, String address, int intervalMinutes, int port){
         boolean idempotent = true;
-        String[] strings = new String[]{facilityName, address};
+        String objectReference = "BookingInterface";
+        String methodId = "Monitor";
+        String[] strings = new String[]{objectReference, methodId, facilityName, address};
         int[] ints = new int[]{intervalMinutes, port};
         byte[] outBuf = marshal(strings, ints);
         return "PASS";
@@ -53,7 +67,9 @@ public class BookingSystemProxy implements BookingSystem {
 
     public String listFacilities (){
         boolean idempotent = true;
-        String[] strings = new String[]{};
+        String objectReference = "BookingInterface";
+        String methodId = "List";
+        String[] strings = new String[]{objectReference, methodId};
         int[] ints = new int[]{};
         byte[] outBuf = marshal(strings, ints);
         return "PASS";
@@ -61,19 +77,13 @@ public class BookingSystemProxy implements BookingSystem {
 
     public String extendBooking (String confirmId, int durationExtension){
         boolean idempotent = false;
-        String[] strings = new String[]{confirmId};
+        String objectReference = "BookingInterface";
+        String methodId = "Extend";
+        String[] strings = new String[]{objectReference, methodId, confirmId};
         int[] ints = new int[]{durationExtension};
         byte[] outBuf = marshal(strings, ints);
         return "PASS";
     }
-
-    public String createFacility (String facilityName){
-        boolean idempotent = true;
-        String[] strings = new String[]{facilityName};
-        int[] ints = new int[]{};
-        byte[] outBuf = marshal(strings, ints);
-        return "PASS";
-    };
 
     private byte[] marshal(String[] strings, int[] ints){
         // MessageType 2 bytes, requestId 2 bytes, type of object ref (string 0) 4 bytes, Length of object ref 4 bytes

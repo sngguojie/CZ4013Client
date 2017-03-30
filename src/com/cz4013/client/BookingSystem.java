@@ -14,7 +14,4 @@ public interface BookingSystem {
     public String listFacilities ();
 
     public String extendBooking (String confirmId, int extensionDuration);
-
-    public String createFacility (String facilityName);
-
 }
