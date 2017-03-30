@@ -62,7 +62,6 @@ public class Data {
 
         return result;
     }
-
     public String stringListToString(){
         String result = "";
         for (String s : this.stringList){
@@ -70,4 +69,5 @@ public class Data {
         }
         return result;
     }
+
 }
