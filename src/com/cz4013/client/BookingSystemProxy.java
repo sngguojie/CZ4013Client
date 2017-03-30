@@ -11,17 +11,13 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     // This class performs marshalling and sends to communication module
 
-<<<<<<< HEAD
+
     final int MAX_BYTE_SIZE = 1024;
     final int BYTE_CHUNK_SIZE = 4;
     CommunicationModule communicationModule;
 
     public BookingSystemProxy(CommunicationModule communicationModule){
         this.communicationModule = communicationModule;
-=======
-    public BookingSystemProxy(){
-
->>>>>>> b1c080677bb6f3f30f03087aacc75834890c780b
     }
 
     public String getFacilityAvailability (String facilityName, String days){
