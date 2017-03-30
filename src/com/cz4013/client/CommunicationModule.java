@@ -35,8 +35,7 @@ public class CommunicationModule extends Thread {
 
     }
 
-    public void run () {
-        System.out.println("CommunicationModule Running");
+    public void waitForPacket () {
         while (this.isRunning) {
             try {
                 byte[] buf = new byte[MAX_BYTE_SIZE];
@@ -50,6 +49,10 @@ public class CommunicationModule extends Thread {
                 isRunning = false;
             }
         }
+    }
+    public void run () {
+        System.out.println("CommunicationModule Running");
+        waitForPacket();
         socket.close();
     }
 
@@ -201,7 +204,7 @@ public class CommunicationModule extends Thread {
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
         System.out.println(new String(requestBody));
         RemoteObject remoteObject = getRemoteObject(requestBody);
-        return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,1,requestBody.length));
+        return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,0,requestBody.length));
     }
 
     private int getNewRequestId () {
