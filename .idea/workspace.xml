@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1b2d520-65f2-4746-981e-48753eaa6707" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystem.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/BookingSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/UserCommandLineImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java" afterPath="$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,7 +47,7 @@
       <file leaf-file-name="MonitorBroadcastSkeleton.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
+            <state relative-caret-position="75">
               <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -66,6 +60,16 @@
                 <element signature="e#2795#2796#0" expanded="true" />
                 <element signature="e#2830#2831#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="51" lean-forward="false" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,6 +168,7 @@
         <option value="$PROJECT_DIR$/src/com/cz4013/client/BookingSystemProxy.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastImpl.java" />
         <option value="$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java" />
+        <option value="$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java" />
       </list>
     </option>
   </component>
@@ -262,6 +267,11 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cz4013.client" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -445,10 +455,10 @@
         <state relative-caret-position="-6802">
           <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
           <folding>
-            <marker date="1490868786000" expanded="true" signature="59:32543" ph="..." />
-            <marker date="1490868786000" expanded="true" signature="32469:32486" ph="..." />
-            <marker date="1490868786000" expanded="true" signature="32469:32504" ph="..." />
-            <marker date="1490868786000" expanded="true" signature="32469:32517" ph="..." />
+            <marker date="1490869007000" expanded="true" signature="59:32793" ph="..." />
+            <marker date="1490869007000" expanded="true" signature="32719:32736" ph="..." />
+            <marker date="1490869007000" expanded="true" signature="32719:32754" ph="..." />
+            <marker date="1490869007000" expanded="true" signature="32719:32767" ph="..." />
           </folding>
         </state>
       </provider>
@@ -522,9 +532,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/RemoteObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
+          <caret line="8" column="51" lean-forward="false" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/cz4013/client/MonitorBroadcastSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
           <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
