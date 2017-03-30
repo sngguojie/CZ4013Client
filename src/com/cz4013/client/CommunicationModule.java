@@ -31,12 +31,11 @@ public class CommunicationModule extends Thread {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(PORT));
         serverPort = 2222;
+
         serverAddress = InetAddress.getByName("10.27.123.20");
 
     }
-
-    public void run () {
-        System.out.println("CommunicationModule Running");
+    public void waitForPacket () {
         while (this.isRunning) {
             try {
                 byte[] buf = new byte[MAX_BYTE_SIZE];
@@ -50,6 +49,10 @@ public class CommunicationModule extends Thread {
                 isRunning = false;
             }
         }
+    }
+    public void run () {
+        System.out.println("CommunicationModule Running");
+        waitForPacket();
         socket.close();
     }
 
@@ -183,14 +186,14 @@ public class CommunicationModule extends Thread {
                     break;
                 }
                 messageHistory.put(inHead, inBody);
-                getRemoteObjectResponse(inBody);
+//                getRemoteObjectResponse(inBody);
                 break;
             case NON_IDEMPOTENT_RESPONSE:
                 if (messageHistory.containsKey(inHead)) {
                     break;
                 }
                 messageHistory.put(inHead, inBody);
-                getRemoteObjectResponse(inBody);
+//                getRemoteObjectResponse(inBody);
                 break;
             default:
                 break;
@@ -199,9 +202,13 @@ public class CommunicationModule extends Thread {
     }
 
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
+
         System.out.println(MarshalModule.unmarshal(requestBody).toString());
+
+        System.out.println(new String(requestBody));
+
         RemoteObject remoteObject = getRemoteObject(requestBody);
-        return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,1,requestBody.length));
+        return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,0,requestBody.length));
     }
 
     private int getNewRequestId () {
@@ -281,16 +288,13 @@ public class CommunicationModule extends Thread {
                 //endDebug
 
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-                System.out.println("b4socket.setSoTimeout(5000);");
-//                socket.setSoTimeout(5000);
-                System.out.println("socket.setSoTimeout(5000);");
-                socket.send(packet);
 
+                socket.send(packet);
+                System.out.println("After sending packet");
                 byte[] bufIn = new byte[MAX_BYTE_SIZE];
                 packet = new DatagramPacket(bufIn, bufIn.length);
                 System.out.println("b4socket.receive(packet)");
                 socket.receive(packet);
-                System.out.println("socket.receive(packet)");
                 InetAddress addressIn = packet.getAddress();
                 int portIn = packet.getPort();
                 byte[] data = packet.getData();

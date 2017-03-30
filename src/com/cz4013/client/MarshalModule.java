@@ -14,7 +14,8 @@ public class MarshalModule {
 
     public static byte[] marshal(String[] strings, int[] ints){
         // MessageType 2 bytes, requestId 2 bytes, type of object ref (string 0) 4 bytes, Length of object ref 4 bytes
-        // Object ref 4 bytes, type of string (0) 4 bytes, length of string 4 bytes, string chunks of 4 bytes
+        // Object ref 4 bytes, type of method id (string 0) 4 bytes, length of method id 4 bytes, method id 4 bytes,
+        // type of string (0) 4 bytes, length of string 4 bytes, string chunks of 4 bytes
         // type of int (1) 4 bytes, int chunks of 4 bytes
 
         // java is big-endian by default
@@ -25,9 +26,7 @@ public class MarshalModule {
         // leave space for messageType and requestId to be filled in by communication module
         int startByte = 0;
         int strType = 1;
-        int strTypePadding = 3;
         int intType = 2;
-        int intTypePadding = 3;
 
         for (String str : strings){
             int strLength = str.length();
@@ -41,6 +40,9 @@ public class MarshalModule {
             for (int i = 0; i < ch.length; i++){
                 outBuf[startByte] = (byte)ch[i];
                 startByte++;
+                if (i == ch.length-1){
+                    startByte--;
+                }
             }
 
             startByte = incrementByteIndex(startByte);
@@ -69,6 +71,7 @@ public class MarshalModule {
         while(startByte < byteArray.length){
             System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
             startByte += BYTE_CHUNK_SIZE;
+            System.out.println(startByte);
             if (isEmpty(chunk)){
                 break;
             }
@@ -86,6 +89,8 @@ public class MarshalModule {
                         startByte += BYTE_CHUNK_SIZE;
                         str += new String(chunk);
                     }
+//                    System.out.println(str);
+                    str = str.substring(0, strLength);
                     if (objectReference == null){
                         objectReference = str;
                         data.setObjectReference(objectReference);
@@ -95,12 +100,12 @@ public class MarshalModule {
                     } else {
                         data.addString(str);
                     }
-                    data.addString(str);
                 } else if (dataType == DATATYPE.INTEGER){
                     System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
                     startByte += BYTE_CHUNK_SIZE;
                     wrapped = ByteBuffer.wrap(chunk);
                     int i = wrapped.getInt();
+//                    System.out.println(i);
                     data.addInt(i);
                 }
             } catch (Exception e){
@@ -130,6 +135,7 @@ public class MarshalModule {
     public static byte[] addIntToByteArray(byte[] byteArray, int i, int startIndex){
         byte[] intByteArray = ByteBuffer.allocate(BYTE_CHUNK_SIZE).putInt(i).array();
         System.arraycopy(intByteArray, 0, byteArray, startIndex, intByteArray.length);
+//        System.out.println(ByteBuffer.wrap(intByteArray).getInt());
         return byteArray;
     }
 }

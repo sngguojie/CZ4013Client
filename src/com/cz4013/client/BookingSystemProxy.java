@@ -25,12 +25,14 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
     public String getFacilityAvailability (String facilityName, String days){
 
         boolean idempotent = true;
-        String objectReference = "BookingSystem";
-        String methodId = "Get";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "getFacilityAvailibility";
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
 
         byte[] outBuf = MarshalModule.marshal(strings, ints);
+        Data data1 = MarshalModule.unmarshal(outBuf);
+        System.out.println(data1.toString());
         byte[] inBuf = cm.sendRequest(outBuf);
         Data data = MarshalModule.unmarshal(inBuf);
         System.out.println(data.getObjectReference());
@@ -39,18 +41,20 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String bookFacility (String facilityName, int day, int startMinute, int endMinute){
         boolean idempotent = true;
-        String objectReference = "BookingSystem";
-        String methodId = "Book";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "bookFacility";
         String[] strings = new String[]{objectReference, methodId, facilityName};
         int[] ints = new int[]{day, startMinute, endMinute};
         byte[] outBuf = MarshalModule.marshal(strings, ints);
+        Data data1 = MarshalModule.unmarshal(outBuf);
+        System.out.println(data1.toString());
         return "PASS";
     };
 
     public String changeBooking (String confirmID, int offset){
         boolean idempotent = false;
-        String objectReference = "BookingSystem";
-        String methodId = "Change";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "changeBooking";
         String[] strings = new String[]{objectReference, methodId, confirmID};
         int[] ints = new int[]{offset};
         byte[] outBuf = MarshalModule.marshal(strings, ints);
@@ -59,11 +63,13 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String monitorFacility (String facilityName, String address, int intervalMinutes, int port){
         boolean idempotent = true;
-        String objectReference = "BookingSystem";
-        String methodId = "Monitor";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "monitorFacility";
         String[] strings = new String[]{objectReference, methodId, facilityName, address};
         int[] ints = new int[]{intervalMinutes, port};
         byte[] outBuf = MarshalModule.marshal(strings, ints);
+        Data data1 = MarshalModule.unmarshal(outBuf);
+        System.out.println(data1.toString());
         return "PASS";
     };
 
@@ -82,8 +88,8 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String extendBooking (String confirmId, int durationExtension){
         boolean idempotent = false;
-        String objectReference = "BookingSystem";
-        String methodId = "Extend";
+        String objectReference = "BookingSystemSkeleton";
+        String methodId = "extendBooking";
         String[] strings = new String[]{objectReference, methodId, confirmId};
         int[] ints = new int[]{durationExtension};
         byte[] outBuf = MarshalModule.marshal(strings, ints);

@@ -14,7 +14,7 @@ public class Main {
 //        String serverPort = args[1];
 //        InetAddress serverAddress = InetAddress.getByName(serverIP);
         CommunicationModule cm = new CommunicationModule();
-        cm.start();
+//        cm.start();
         String clientAddress = InetAddress.getLocalHost().toString();
         int port = 2222;
 //        System.out.println(clientAddress);
