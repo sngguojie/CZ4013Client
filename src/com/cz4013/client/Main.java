@@ -13,13 +13,18 @@ public class Main {
 //        String serverIP = args[0];
 //        String serverPort = args[1];
 //        InetAddress serverAddress = InetAddress.getByName(serverIP);
+        CommunicationModule cm = new CommunicationModule();
+        cm.start();
         String clientAddress = InetAddress.getLocalHost().toString();
         System.out.println(clientAddress);
         int port = 2222;
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
-        new CommunicationModule().start();
+        BookingSystem BSP = new BookingSystemProxy();
+        ucl.setBookingSystemProxy(BSP);
+        ucl.getUserInput();
+
 
 
 //        // get a datagram socket

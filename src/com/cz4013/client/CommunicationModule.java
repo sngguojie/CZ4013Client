@@ -20,6 +20,7 @@ public class CommunicationModule extends Thread {
     protected InetAddress serverAddress;
     protected int serverPort;
     protected HashMap<Integer, byte[]> requestHistory = new HashMap<Integer,byte[]>();
+    private final int MAX_BYTE_SIZE = 1024;
 
     public CommunicationModule() throws IOException {
         // PORT 2222 is default for NTU computers
@@ -31,13 +32,14 @@ public class CommunicationModule extends Thread {
         socket = new DatagramSocket(new InetSocketAddress(PORT));
         serverPort = PORT;
         serverAddress = InetAddress.getByName("10.27.123.20");
+
     }
 
     public void run () {
         System.out.println("CommunicationModule Running");
         while (this.isRunning) {
             try {
-                byte[] buf = new byte[256];
+                byte[] buf = new byte[MAX_BYTE_SIZE];
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
                 socket.receive(packet);
                 InetAddress address = packet.getAddress();
@@ -238,6 +240,10 @@ public class CommunicationModule extends Thread {
                 sendPacketOut(payload, address, port);
             }
         }
+    }
+
+    public void addObjectReference(String name, RemoteObject objRef){
+        this.objectReference.put(name, objRef);
     }
 
 }

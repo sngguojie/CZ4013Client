@@ -19,10 +19,8 @@ public class UserCommandLineImpl implements UserCommandLine{
     public UserCommandLineImpl(String address, int port){
         this.sc = new Scanner(System.in);
         this.confirmationIdList = new ArrayList<String>();
-        this.BSP = new BookingSystemProxy();
         this.address = address;
         this.port = port;
-        getUserInput();
     }
 
     public void userDisplayFacilityAvailability(){
@@ -42,7 +40,7 @@ public class UserCommandLineImpl implements UserCommandLine{
             }
         }
 
-        // remove trailing space
+        // removes trailing space
         daysIntegers = daysIntegers.substring(0, daysIntegers.length()-1);
 
         if(success){
@@ -52,7 +50,6 @@ public class UserCommandLineImpl implements UserCommandLine{
     }
 
     public String getFacilityAvailability(String facility, String days){
-//        return "PASS";
         return BSP.getFacilityAvailability(facility, days);
     }
 
@@ -95,7 +92,6 @@ public class UserCommandLineImpl implements UserCommandLine{
     }
 
     public String bookFacility(String facility, int day, int startMinute, int endMinute){
-//        return "PASS";
         return BSP.bookFacility(facility, day, startMinute, endMinute);
     }
 
@@ -123,7 +119,6 @@ public class UserCommandLineImpl implements UserCommandLine{
     }
 
     public String changeBooking(String confirmationId, int offset){
-//        return "PASS";
         return BSP.changeBooking(confirmationId, offset);
     }
 
@@ -148,7 +143,6 @@ public class UserCommandLineImpl implements UserCommandLine{
 
     public String monitorFacility(String facility, int monitorInterval){
         return BSP.monitorFacility(facility, this.address, monitorInterval, this.port);
-//        return "PASS";
     }
 
     public void userListFacilities(){
@@ -158,7 +152,6 @@ public class UserCommandLineImpl implements UserCommandLine{
 
     public String listFacilities(){
         return BSP.listFacilities();
-//        return "PASS";
     }
 
     public void userExtendBooking(){
@@ -248,6 +241,8 @@ public class UserCommandLineImpl implements UserCommandLine{
         System.out.println("(0) Quit. ");
     }
 
-
+    public void setBookingSystemProxy(BookingSystem BSP){
+        this.BSP = BSP;
+    }
 
 }

@@ -5,6 +5,9 @@ package com.cz4013.client;
  */
 public class MonitorBroadcastImpl implements MonitorBroadcast {
 
+    public MonitorBroadcastImpl(){
+    }
+
     public void displayAvailability(String availability){
         System.out.println(availability);
     }
