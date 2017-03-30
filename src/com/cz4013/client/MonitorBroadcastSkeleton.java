@@ -6,7 +6,9 @@ import java.util.ArrayList;
 /**
  * Created by danielseetoh on 3/30/17.
  */
+
 public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
+
 
     private final int MAX_BYTE_SIZE = 1024;
     private final int BYTE_CHUNK_SIZE = 4;

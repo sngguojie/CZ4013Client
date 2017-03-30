@@ -1,5 +1,6 @@
 package com.cz4013.client;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
@@ -12,7 +13,12 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     private CommunicationModule cm;
 
-    public BookingSystemProxy(){
+
+    final int MAX_BYTE_SIZE = 1024;
+    final int BYTE_CHUNK_SIZE = 4;
+    CommunicationModule communicationModule;
+
+    public BookingSystemProxy (){
 
     }
 
@@ -23,6 +29,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         String methodId = "Get";
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
+
         byte[] outBuf = MarshalModule.marshal(strings, ints);
 
         return "PASS";
