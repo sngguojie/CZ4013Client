@@ -313,4 +313,8 @@ public class CommunicationModule extends Thread {
         this.binder = binder;
     }
 
+    public void setWaitingForPacket(boolean wait){
+        this.isRunning = wait;
+    }
+
 }

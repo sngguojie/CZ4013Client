@@ -170,6 +170,9 @@ public class UserCommandLineImpl implements UserCommandLine{
             if (result == "Success Monitor"){
                 System.out.println("Begin waiting for updates.");
                 this.cm.waitForPacket();
+            } else if (result == "Expired"){
+                System.out.println("Expired monitor.");
+                this.cm.setWaitingForPacket(false);
             }
         }
     }

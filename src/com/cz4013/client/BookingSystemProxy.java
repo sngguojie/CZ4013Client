@@ -99,6 +99,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
     }
 
     public byte[] handleRequest (byte[] requestBody){
+
         return null;
     }
 
