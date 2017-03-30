@@ -24,7 +24,6 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
         byte[] outBuf = MarshalModule.marshal(strings, ints);
-
         return "PASS";
     };
 

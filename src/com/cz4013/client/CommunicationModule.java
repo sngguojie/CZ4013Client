@@ -24,14 +24,14 @@ public class CommunicationModule extends Thread {
 
     public CommunicationModule() throws IOException {
         // PORT 2222 is default for NTU computers
-        this("CommunicationModule", 2222);
+        this("CommunicationModule", 2221);
     }
 
     public CommunicationModule(String name, int PORT) throws IOException {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(PORT));
         serverPort = PORT;
-        serverAddress = InetAddress.getByName("10.27.123.20");
+        serverAddress = InetAddress.getByName("10.27.40.101");
 
     }
 
