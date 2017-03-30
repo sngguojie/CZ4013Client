@@ -24,10 +24,14 @@ public class Main {
         MonitorBroadcastSkeleton mbs = new MonitorBroadcastSkeleton();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
         BookingSystemProxy BSP = new BookingSystemProxy();
+        Binder binder = new Binder();
+
         ucl.setBookingSystemProxy(BSP);
         BSP.setCommunicationModule(cm);
         cm.addObjectReference("BookingSystemProxy", BSP);
         cm.addObjectReference("MonitorBroadcastSkeleton", mbs);
+        cm.setBinder(binder);
+
         ucl.getUserInput();
 
 

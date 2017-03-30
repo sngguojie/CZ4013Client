@@ -13,13 +13,13 @@ import java.util.HashSet;
 public class CommunicationModule extends Thread {
     protected boolean isRunning = true;
     protected DatagramSocket socket = null;
-    protected HashMap<String, RemoteObject> objectReference = new HashMap<String, RemoteObject>();
     protected HashMap<byte[], byte[]> messageHistory = new HashMap<byte[], byte[]>();
     protected enum MSGTYPE {IDEMPOTENT_REQUEST, NON_IDEMPOTENT_REQUEST, IDEMPOTENT_RESPONSE, NON_IDEMPOTENT_RESPONSE};
     protected enum DATATYPE {STRING, INT};
     protected InetAddress serverAddress;
     protected int serverPort;
     protected HashMap<Integer, byte[]> requestHistory = new HashMap<Integer,byte[]>();
+    private Binder binder;
     private final int MAX_BYTE_SIZE = 1024;
 
     public CommunicationModule() throws IOException {
@@ -144,7 +144,7 @@ public class CommunicationModule extends Thread {
         int stringLen = ByteBuffer.wrap(Arrays.copyOfRange(payload, 4, 8)).getInt();
         stringLen += 4 - (stringLen % 4);
         String objectRefName = Arrays.copyOfRange(payload, 8, 8 + stringLen).toString();
-        return objectReference.get(objectRefName);
+        return binder.getObjectReference(objectRefName);
     }
 
     private void handlePacketIn(byte[] payload, InetAddress address, int port) throws IOException {
@@ -232,7 +232,11 @@ public class CommunicationModule extends Thread {
     }
 
     public void addObjectReference(String name, RemoteObject objRef){
-        this.objectReference.put(name, objRef);
+        this.binder.addObjectReference(name, objRef);
+    }
+
+    public void setBinder(Binder binder){
+        this.binder = binder;
     }
 
 }
