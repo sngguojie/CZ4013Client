@@ -11,13 +11,15 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     // This class performs marshalling and sends to communication module
 
+    private CommunicationModule cm;
+
 
     final int MAX_BYTE_SIZE = 1024;
     final int BYTE_CHUNK_SIZE = 4;
     CommunicationModule communicationModule;
 
-    public BookingSystemProxy(CommunicationModule communicationModule){
-        this.communicationModule = communicationModule;
+    public BookingSystemProxy (){
+
     }
 
     public String getFacilityAvailability (String facilityName, String days){
@@ -27,17 +29,12 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         String methodId = "Get";
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
-<<<<<<< HEAD
-        byte[] outBuf = marshal(strings, ints);
-        try {
-            communicationModule.sendPayload(outBuf);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-=======
+
         byte[] outBuf = MarshalModule.marshal(strings, ints);
 
->>>>>>> b1c080677bb6f3f30f03087aacc75834890c780b
+        cm.sendRequest(outBuf);
+
+
         return "PASS";
     };
 
@@ -93,6 +90,10 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public byte[] handleRequest (byte[] requestBody){
         return null;
+    }
+
+    public void setCommunicationModule(CommunicationModule cm){
+        this.cm = cm;
     }
 
 }

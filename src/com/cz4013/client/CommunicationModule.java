@@ -24,7 +24,7 @@ public class CommunicationModule extends Thread {
 
     public CommunicationModule() throws IOException {
         // PORT 2222 is default for NTU computers
-        this("CommunicationModule", 2222);
+        this("CommunicationModule", 2221);
     }
 
     public CommunicationModule(String name, int PORT) throws IOException {
@@ -164,19 +164,19 @@ public class CommunicationModule extends Thread {
                 outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
                 outBody = getRemoteObjectResponse(inBody);
                 out = combineByteArrays(outHead, outBody);
-                sendPacketOut(out, address, port);
+                sendReponsePacketOut(out, address, port);
                 break;
             case NON_IDEMPOTENT_REQUEST:
                 if (messageHistory.containsKey(inHead)) {
                     out = messageHistory.get(inHead);
-                    sendPacketOut(out, address, port);
+                    sendReponsePacketOut(out, address, port);
                     break;
                 }
                 outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
                 outBody = getRemoteObjectResponse(inBody);
                 out = combineByteArrays(outHead, outBody);
                 messageHistory.put(inHead,out);
-                sendPacketOut(out, address, port);
+                sendReponsePacketOut(out, address, port);
                 break;
             case IDEMPOTENT_RESPONSE:
                 if (messageHistory.containsKey(inHead)) {
@@ -211,35 +211,92 @@ public class CommunicationModule extends Thread {
         return i;
     }
 
-    public void sendPayload (byte[] data) throws IOException {
-        sendPayload(data, serverAddress, serverPort);
+
+    public byte[] sendRequest(byte[] data) {
+        return sendRequest(data, serverAddress, serverPort);
     }
 
-    public void sendPayload (byte[] data, InetAddress address, int port) throws IOException {
+    public void sendResponse(byte[] data) {
+        sendResponse(data, serverAddress, serverPort);
+    }
+
+    public byte[] sendRequest(byte[] data, InetAddress address, int port) {
+        try {
+            byte[] payload = makePayload(data);
+            return sendRequestPacketOut(payload, address, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void sendResponse(byte[] data, InetAddress address, int port) {
+        try {
+            byte[] payload = makePayload(data);
+            sendReponsePacketOut(payload, address, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private byte[] makePayload (byte[] data) throws IOException {
         int requestIdInt = getNewRequestId();
         byte[] outHead = getResponseHead(MSGTYPE.IDEMPOTENT_REQUEST, requestIdInt);
         byte[] out = combineByteArrays(outHead, data);
         requestHistory.put(requestIdInt,out);
-        sendPacketOut(out, address, port);
+        return out;
     }
 
-    private void sendPacketOut (byte[] payload, InetAddress address, int port) throws IOException {
+    private void sendReponsePacketOut (byte[] payload, InetAddress address, int port) throws IOException {
         if (payload == null) {
             return;
         }
-
         // send request
-        while(true) {
+        byte[] buf = payload;
+        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+        socket.send(packet);
+    }
+
+    private byte[] sendRequestPacketOut (byte[] payload, InetAddress address, int port) throws IOException {
+        if (payload == null) {
+            return null;
+        }
+        boolean resend = true;
+        byte[] requestIdBytesOut = new byte[2];
+        System.arraycopy(payload, 2, requestIdBytesOut, 0, 2);
+        int requestIdOut = getBytesAsHalfWord(requestIdBytesOut);
+        // send request
+        do {
             try {
                 byte[] buf = payload;
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
                 socket.setSoTimeout(5000);
                 socket.send(packet);
-                break;
+
+                byte[] bufIn = new byte[MAX_BYTE_SIZE];
+                packet = new DatagramPacket(bufIn, bufIn.length);
+                socket.receive(packet);
+                InetAddress addressIn = packet.getAddress();
+                int portIn = packet.getPort();
+                byte[] data = packet.getData();
+                byte messageTypeByte = data[0];
+                byte idempotentTypeByte = data[1];
+                byte[] requestIdBytesIn = new byte[2];
+                System.arraycopy(data, 2, requestIdBytesIn, 0, 2);
+                int requestIdIn = getBytesAsHalfWord(requestIdBytesIn);
+                MSGTYPE messageType = getMessageType(messageTypeByte, idempotentTypeByte);
+                boolean isResponse = (messageType == MSGTYPE.IDEMPOTENT_RESPONSE || messageType == MSGTYPE.NON_IDEMPOTENT_RESPONSE);
+                if (isResponse && requestIdIn == requestIdOut) {
+                    byte[] inBody = Arrays.copyOfRange(data, 4, payload.length);
+                    return  inBody;
+                } else {
+                    handlePacketIn(data, addressIn, portIn);
+                }
             } catch (SocketTimeoutException ste) {
-                sendPacketOut(payload, address, port);
+                sendRequestPacketOut(payload, address, port);
             }
-        }
+        } while(resend);
+        return null;
     }
 
     public void addObjectReference(String name, RemoteObject objRef){

@@ -6,11 +6,9 @@ import java.util.ArrayList;
 /**
  * Created by danielseetoh on 3/30/17.
  */
-<<<<<<< HEAD
-public class MonitorBroadcastSkeleton implements MonitorBroadcast {
-=======
+
 public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
->>>>>>> b1c080677bb6f3f30f03087aacc75834890c780b
+
 
     private final int MAX_BYTE_SIZE = 1024;
     private final int BYTE_CHUNK_SIZE = 4;

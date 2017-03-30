@@ -16,13 +16,18 @@ public class Main {
         CommunicationModule cm = new CommunicationModule();
         cm.start();
         String clientAddress = InetAddress.getLocalHost().toString();
-        System.out.println(clientAddress);
         int port = 2222;
+//        System.out.println(clientAddress);
+
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
+        MonitorBroadcastSkeleton mbs = new MonitorBroadcastSkeleton();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
-        BookingSystem BSP = new BookingSystemProxy();
+        BookingSystemProxy BSP = new BookingSystemProxy();
         ucl.setBookingSystemProxy(BSP);
+        BSP.setCommunicationModule(cm);
+        cm.addObjectReference("BookingSystemProxy", BSP);
+        cm.addObjectReference("MonitorBroadcastSkeleton", mbs);
         ucl.getUserInput();
 
 
