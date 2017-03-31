@@ -7,16 +7,37 @@ public class Main {
     public static void main(String[] args) throws IOException {
 	// write your code here
 
-        CommunicationModule cm = new CommunicationModule();
-//        cm.start();
+        // user should input server ip address, server port
+        String serverIpAddress;
+        int serverPort;
+        int clientPort;
+        if (args.length == 2) {
+            serverIpAddress = args[0];
+            serverPort = Integer.parseInt(args[1]);
+        } else {
+            serverIpAddress = "10.27.40.101";
+            serverPort = 2222;
+        }
+        if (args.length == 3){
+            clientPort = Integer.parseInt(args[2]);
+        } else {
+            clientPort = 2221;
+        }
         String[] clientAddressArr = InetAddress.getLocalHost().toString().split("/");
         String clientAddress = clientAddressArr[clientAddressArr.length-1];
-        int port = 2222;
+
+
+        System.out.println("Using serverIpAddress: " + serverIpAddress);
+        System.out.println("Using serverPort: " + serverPort);
+        System.out.println("Using clientAddress: " + clientAddress);
+        System.out.println("Using clientPort: " + clientPort);
+
+        CommunicationModule cm = new CommunicationModule(clientPort, serverIpAddress, serverPort);
 
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
         MonitorBroadcastSkeleton mbs = new MonitorBroadcastSkeleton();
-        UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, port);
+        UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, clientPort);
         BookingSystemProxy bsp = new BookingSystemProxy();
         Binder binder = new Binder();
 

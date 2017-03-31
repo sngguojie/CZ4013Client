@@ -22,17 +22,17 @@ public class CommunicationModule extends Thread {
     private Binder binder;
     private final int MAX_BYTE_SIZE = 1024;
 
-    public CommunicationModule() throws IOException {
+    public CommunicationModule(int clientPort, String serverIpAddress, int serverPort) throws IOException {
         // PORT 2222 is default for NTU computers
-        this("CommunicationModule", 2221);
+        this("CommunicationModule", clientPort, serverIpAddress, serverPort);
     }
 
-    public CommunicationModule(String name, int PORT) throws IOException {
+    public CommunicationModule(String name, int clientPORT, String serverIpAddress, int serverPort) throws IOException {
         super(name);
-        socket = new DatagramSocket(new InetSocketAddress(PORT));
-        serverPort = 2222;
+        socket = new DatagramSocket(new InetSocketAddress(clientPORT));
+        this.serverPort = serverPort;
 
-        serverAddress = InetAddress.getByName("10.27.123.20");
+        serverAddress = InetAddress.getByName(serverIpAddress);
 
 
     }

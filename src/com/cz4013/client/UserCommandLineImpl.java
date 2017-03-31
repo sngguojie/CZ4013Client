@@ -71,13 +71,13 @@ public class UserCommandLineImpl implements UserCommandLine{
             return;
         }
         System.out.println("From what time do you wish to book? (DAY/HOUR/MINUTE) e.g. MONDAY/14/45");
-        String startTime = this.sc.nextLine();
+        String startTime = this.sc.nextLine().toUpperCase();
         if (startTime.length() == 0){
             System.out.println("Invalid input.");
             return;
         }
         System.out.println("Until what time do you wish to book? (has to be the same day) e.g. MONDAY/17/30");
-        String endTime = this.sc.nextLine();
+        String endTime = this.sc.nextLine().toUpperCase();
         if (endTime.length() == 0){
             System.out.println("Invalid input.");
             return;
@@ -266,6 +266,7 @@ public class UserCommandLineImpl implements UserCommandLine{
                 }
 
             } catch (Exception e){
+                e.printStackTrace();
                 System.out.println("Please input an integer from 0 to 6.");
             }
         } while (input != 0);
