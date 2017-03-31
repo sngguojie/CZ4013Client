@@ -233,13 +233,18 @@ public class UserCommandLineImpl implements UserCommandLine{
             System.out.println("What would you like to do next?");
             printOptions();
             try{
-                input = this.sc.nextInt();
-                sc.nextLine();
-                if (input < 0 || input > 6){
-                    throw new Exception();
-                }
+                input = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Please input an integer.");
+                continue;
+            }
+            
+            if (input < 0 || input > 6){
+                System.out.println("Please input an integer from 0 to 6.");
+            } else {
 
-                switch(input){
+
+                switch (input) {
                     case 1:
                         userDisplayFacilityAvailability();
                         break;
@@ -265,9 +270,6 @@ public class UserCommandLineImpl implements UserCommandLine{
                         System.out.println("Please input an integer from 0 to 6.");
                 }
 
-            } catch (Exception e){
-                e.printStackTrace();
-                System.out.println("Please input an integer from 0 to 6.");
             }
         } while (input != 0);
     }
