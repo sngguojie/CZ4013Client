@@ -24,6 +24,7 @@ public class CommunicationModule extends Thread {
     private final int MAX_BYTE_SIZE = 1024;
     private boolean printMessageHeadOn = false;
     private float lossRate;
+    Random random = new Random();
 
     public CommunicationModule(int clientPort, String serverIpAddress, int serverPort) throws IOException {
         // PORT 2222 is default for NTU computers
@@ -43,7 +44,6 @@ public class CommunicationModule extends Thread {
     }
 
     public void waitForPacket () {
-        Random random = new Random();
         while (this.isRunning) {
             try {
                 byte[] buf = new byte[MAX_BYTE_SIZE];
@@ -231,6 +231,9 @@ public class CommunicationModule extends Thread {
         byte[] buf = payload;
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
         printMessageHead(packet, false);
+        if (random.nextFloat() <= this.lossRate) {
+            return;
+        }
         socket.send(packet);
     }
 
@@ -249,7 +252,6 @@ public class CommunicationModule extends Thread {
 
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
                 printMessageHead(packet, false);
-//                socket.send(packet);
                 receivedResponse.put(requestIdOut, false);
                 new TimerThread(this, socket, packet, requestIdOut, 500l).start();
 
@@ -345,6 +347,10 @@ public class CommunicationModule extends Thread {
 
     public boolean gotResponse(int requestId) {
         return receivedResponse.containsKey(requestId) && receivedResponse.get(requestId);
+    }
+
+    public boolean isPacketLoss() {
+        return random.nextFloat() <= this.lossRate;
     }
 
 }
