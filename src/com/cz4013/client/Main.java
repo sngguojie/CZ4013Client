@@ -34,6 +34,8 @@ public class Main {
         System.out.println("Using clientPort: " + clientPort);
 
         CommunicationModule cm = new CommunicationModule(clientPort, serverIpAddress, serverPort);
+        cm.setPrintMessageHead(true);
+        cm.setLossRate(0.5f);
 
 
         MonitorBroadcast mb = new MonitorBroadcastImpl();
