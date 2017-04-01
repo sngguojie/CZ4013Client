@@ -15,7 +15,6 @@ public class CommunicationModule extends Thread {
     protected DatagramSocket socket = null;
     protected HashMap<byte[], byte[]> messageHistory = new HashMap<byte[], byte[]>();
     protected enum MSGTYPE {IDEMPOTENT_REQUEST, NON_IDEMPOTENT_REQUEST, IDEMPOTENT_RESPONSE, NON_IDEMPOTENT_RESPONSE};
-    protected enum DATATYPE {STRING, INT};
     protected InetAddress serverAddress;
     protected int serverPort;
     protected HashMap<Integer, byte[]> requestHistory = new HashMap<Integer,byte[]>();
@@ -24,7 +23,9 @@ public class CommunicationModule extends Thread {
 
     public CommunicationModule(int clientPort, String serverIpAddress, int serverPort) throws IOException {
         // PORT 2222 is default for NTU computers
+
         this("CommunicationModule", clientPort, serverIpAddress, serverPort);
+
     }
 
     public CommunicationModule(String name, int clientPORT, String serverIpAddress, int serverPort) throws IOException {
@@ -130,24 +131,8 @@ public class CommunicationModule extends Thread {
         return c;
     }
 
-    private DATATYPE getDataType (byte[] word) {
-        if (word[0] == (byte)0x00) {
-            return DATATYPE.STRING;
-        }
-        if (word[0] == (byte)0x01) {
-            return DATATYPE.INT;
-        }
-        return null;
-    }
-
     private RemoteObject getRemoteObject (byte[] payload) {
-        DATATYPE dataType = getDataType(Arrays.copyOfRange(payload, 0, 4));
-        if (dataType != DATATYPE.STRING) {
-            return null;
-        }
-        int stringLen = ByteBuffer.wrap(Arrays.copyOfRange(payload, 4, 8)).getInt();
-        stringLen += 4 - (stringLen % 4);
-        String objectRefName = Arrays.copyOfRange(payload, 8, 8 + stringLen).toString();
+        String objectRefName = MarshalModule.unmarshal(payload).getObjectReference();
         return binder.getObjectReference(objectRefName);
     }
 
@@ -160,7 +145,7 @@ public class CommunicationModule extends Thread {
         MSGTYPE messageType = getMessageType(messageTypeByte, idempotentTypeByte);
         int requestId = getBytesAsHalfWord(requestIdBytes);
         byte[] inHead = Arrays.copyOfRange(payload, 0, 4);
-        byte[] inBody = Arrays.copyOfRange(payload, 4, payload.length);
+        byte[] inBody = Arrays.copyOfRange(payload, 4, payload.length - 4);
         byte[] outHead, outBody, out;
 
         switch (messageType) {
@@ -203,13 +188,8 @@ public class CommunicationModule extends Thread {
     }
 
     private byte[] getRemoteObjectResponse (byte[] requestBody) {
-
-//        System.out.println(MarshalModule.unmarshal(requestBody).toString());
-
-//        System.out.println(new String(requestBody));
-
         RemoteObject remoteObject = getRemoteObject(requestBody);
-        return remoteObject.handleRequest(Arrays.copyOfRange(requestBody,0,requestBody.length));
+        return remoteObject.handleRequest(requestBody);
     }
 
     private int getNewRequestId () {
@@ -230,7 +210,6 @@ public class CommunicationModule extends Thread {
     }
 
     public byte[] sendRequest(byte[] data, InetAddress address, int port) {
-        System.out.println("sendRequest");
         try {
             byte[] payload = makePayload(data);
             return sendRequestPacketOut(payload, address, port);
@@ -271,7 +250,6 @@ public class CommunicationModule extends Thread {
         if (payload == null) {
             return null;
         }
-        System.out.println("sendRequestPacketOut");
         boolean resend = true;
         byte[] requestIdBytesOut = new byte[2];
         System.arraycopy(payload, 2, requestIdBytesOut, 0, 2);
@@ -281,20 +259,12 @@ public class CommunicationModule extends Thread {
             try {
                 byte[] buf = payload;
 
-                //Debug
-//                System.out.println(new String(buf));
-                byte[] temp = Arrays.copyOfRange(buf,4,buf.length-4);
-//                System.out.println(new String(temp));
-//                System.out.println(MarshalModule.unmarshal(temp).toString());
-                //endDebug
-
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
 
                 socket.send(packet);
-                System.out.println("After sending packet");
                 byte[] bufIn = new byte[MAX_BYTE_SIZE];
                 packet = new DatagramPacket(bufIn, bufIn.length);
-                System.out.println("b4socket.receive(packet)");
+
                 socket.receive(packet);
                 InetAddress addressIn = packet.getAddress();
                 int portIn = packet.getPort();

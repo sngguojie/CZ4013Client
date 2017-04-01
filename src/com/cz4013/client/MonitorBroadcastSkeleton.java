@@ -31,18 +31,21 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
         String methodId = data.getMethodId();
         ArrayList<String> strings = data.getStringList();
         ArrayList<Integer> ints = data.getIntList();
-        byte[] result = null;
-
+        String result = "Error MethodID ";
         switch (methodId){
             case "displayAvailability":
                 displayAvailability(data.stringListToString());
-                result = null;
+                result = "Success";
                 break;
             default:
                 System.out.println("MethodId " + methodId + " does not exist.");
         }
 
-        return result;
+        System.out.print("result ");
+        System.out.println(result);
+        String[] StrList = {"MonitorBroadcastProxy", "displayAvailability", result};
+        int[] intList = {1};
+        return MarshalModule.marshal(StrList, intList);
     }
 
     public void setCommunicationModule(CommunicationModule cm){

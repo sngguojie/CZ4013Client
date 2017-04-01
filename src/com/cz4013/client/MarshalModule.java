@@ -56,28 +56,26 @@ public class MarshalModule {
             startByte = incrementByteIndex(startByte);
         }
 
-        System.out.println(new String(outBuf));
-
         return outBuf;
     }
 
     public static Data unmarshal(byte[] byteArray){
+
         int startByte = 0;
         byte[] chunk = new byte[4];
         Data data = new Data();
         String objectReference = null;
         String methodId = null;
-
         while(startByte < byteArray.length){
             System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
             startByte += BYTE_CHUNK_SIZE;
-//            System.out.println(startByte);
             if (isEmpty(chunk)){
                 break;
             }
             ByteBuffer wrapped = ByteBuffer.wrap(chunk);
             try {
-                DATATYPE dataType = DATATYPE.values()[wrapped.getInt()-1];
+                int wrappedInt = wrapped.getInt();
+                DATATYPE dataType = DATATYPE.values()[wrappedInt-1];
                 if (dataType == DATATYPE.STRING){
                     System.arraycopy(byteArray, startByte, chunk, 0, chunk.length);
                     startByte += BYTE_CHUNK_SIZE;
@@ -89,7 +87,6 @@ public class MarshalModule {
                         startByte += BYTE_CHUNK_SIZE;
                         str += new String(chunk);
                     }
-//                    System.out.println(str);
                     str = str.substring(0, strLength);
                     if (objectReference == null){
                         objectReference = str;
@@ -105,7 +102,6 @@ public class MarshalModule {
                     startByte += BYTE_CHUNK_SIZE;
                     wrapped = ByteBuffer.wrap(chunk);
                     int i = wrapped.getInt();
-//                    System.out.println(i);
                     data.addInt(i);
                 }
             } catch (Exception e){

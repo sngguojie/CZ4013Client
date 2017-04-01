@@ -11,20 +11,21 @@ public class Main {
         String serverIpAddress;
         int serverPort;
         int clientPort;
-        if (args.length == 2) {
+        if (args.length >= 2) {
             serverIpAddress = args[0];
             serverPort = Integer.parseInt(args[1]);
         } else {
-            serverIpAddress = "10.27.40.101";
+            serverIpAddress = "192.168.0.108";
             serverPort = 2222;
         }
-        if (args.length == 3){
+        if (args.length >= 3){
             clientPort = Integer.parseInt(args[2]);
         } else {
-            clientPort = 2221;
+            clientPort = 2220;
         }
         String[] clientAddressArr = InetAddress.getLocalHost().toString().split("/");
         String clientAddress = clientAddressArr[clientAddressArr.length-1];
+
 
 
         System.out.println("Using serverIpAddress: " + serverIpAddress);
