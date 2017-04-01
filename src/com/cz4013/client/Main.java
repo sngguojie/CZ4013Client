@@ -34,6 +34,7 @@ public class Main {
         System.out.println("Using clientAddress: " + clientAddress);
         System.out.println("Using clientPort: " + clientPort);
 
+
         // instantiate remote binder comms module and retrieve server object reference
         RemoteBinderCommunicationModule rbcm = new RemoteBinderCommunicationModule(clientPortForRemoteBinder, remoteBinderIpAddress, remoteBinderPort);
         rbcm.start();
@@ -44,6 +45,9 @@ public class Main {
         String remoteObjectID = RORArray[2];
         System.out.println(remoteObjectReference);
         rbcm.setExit(true);
+
+
+
 
         // give client time to close udp socket
         try {
@@ -69,6 +73,8 @@ public class Main {
         cm.setBinder(binder);
         cm.addObjectReference("BookingSystemProxy", bsp);
         cm.addObjectReference("MonitorBroadcastSkeleton", mbs);
+        cm.setPrintMessageHead(true);
+        cm.setLossRate(0.5f);
 
         // begin terminal user interface
         ucl.getUserInput();
