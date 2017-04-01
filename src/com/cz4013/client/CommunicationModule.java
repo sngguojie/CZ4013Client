@@ -15,6 +15,7 @@ public class CommunicationModule extends Thread {
     protected boolean isRunning = true;
     protected DatagramSocket socket = null;
     protected HashMap<byte[], byte[]> messageHistory = new HashMap<byte[], byte[]>();
+    protected HashMap<byte[], Boolean> receivedRequest = new HashMap<byte[], Boolean>();
     protected enum MSGTYPE {IDEMPOTENT_REQUEST, NON_IDEMPOTENT_REQUEST, IDEMPOTENT_RESPONSE, NON_IDEMPOTENT_RESPONSE};
     protected InetAddress serverAddress;
     protected int serverPort;
@@ -25,21 +26,23 @@ public class CommunicationModule extends Thread {
     private boolean printMessageHeadOn = false;
     private float lossRate;
     Random random = new Random();
+    boolean atLeastOnce;
 
-    public CommunicationModule(int clientPort, String serverIpAddress, int serverPort) throws IOException {
+
+    public CommunicationModule(int clientPort, String serverIpAddress, int serverPort, boolean atLeastOnce) throws IOException {
         // PORT 2222 is default for NTU computers
 
-        this("CommunicationModule", clientPort, serverIpAddress, serverPort);
+        this("CommunicationModule", clientPort, serverIpAddress, serverPort, atLeastOnce);
 
     }
 
-    public CommunicationModule(String name, int clientPORT, String serverIpAddress, int serverPort) throws IOException {
+    public CommunicationModule(String name, int clientPORT, String serverIpAddress, int serverPort, boolean atLeastOnce) throws IOException {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(clientPORT));
         this.serverPort = serverPort;
 
         serverAddress = InetAddress.getByName(serverIpAddress);
-
+        this.atLeastOnce = atLeastOnce;
 
     }
 
@@ -126,40 +129,54 @@ public class CommunicationModule extends Thread {
 
         switch (messageType) {
             case IDEMPOTENT_REQUEST:
-                outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
-                outBody = getRemoteObjectResponse(inBody);
-                out = ByteUtils.combineByteArrays(outHead, outBody);
-                sendReponsePacketOut(out, address, port);
-                break;
-            case NON_IDEMPOTENT_REQUEST:
-                if (messageHistory.containsKey(inHead)) {
+//                System.out.println("this.atLeastOnce" + this.atLeastOnce);
+//                System.out.println("messageHistory.containsKey(inHead)" + messageHistory.containsKey(inHead));
+                if (!this.atLeastOnce && messageHistory.containsKey(inHead)) {
                     out = messageHistory.get(inHead);
                     sendReponsePacketOut(out, address, port);
-                    System.out.println("get message from messageHistory");
+//                    System.out.println("get message from messageHistory");
                     break;
                 }
+                if (!this.atLeastOnce && receivedRequest.containsKey(inHead)) {
+                    break;
+                }
+                receivedRequest.put(inHead, true);
                 outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
                 outBody = getRemoteObjectResponse(inBody);
                 out = ByteUtils.combineByteArrays(outHead, outBody);
                 messageHistory.put(inHead,out);
-                System.out.println("store message in messageHistory");
+//                System.out.println("store message in messageHistory");
+                sendReponsePacketOut(out, address, port);
+                break;
+            case NON_IDEMPOTENT_REQUEST:
+//                System.out.println("this.atLeastOnce" + this.atLeastOnce);
+//                System.out.println("messageHistory.containsKey(inHead)" + messageHistory.containsKey(inHead));
+                if (!this.atLeastOnce && messageHistory.containsKey(inHead)) {
+                    out = messageHistory.get(inHead);
+                    sendReponsePacketOut(out, address, port);
+//                    System.out.println("get message from messageHistory");
+                    break;
+                }
+                if (!this.atLeastOnce && receivedRequest.containsKey(inHead)) {
+                    break;
+                }
+                receivedRequest.put(inHead, true);
+                outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
+                outBody = getRemoteObjectResponse(inBody);
+                out = ByteUtils.combineByteArrays(outHead, outBody);
+                messageHistory.put(inHead,out);
+//                System.out.println("store message in messageHistory");
                 sendReponsePacketOut(out, address, port);
                 break;
             case IDEMPOTENT_RESPONSE:
-                if (messageHistory.containsKey(inHead)) {
-                    System.out.println("get message from messageHistory");
-                    break;
+                if (receivedResponse.containsKey(getRequestId(inHead))) {
+                    receivedResponse.put(getRequestId(inHead), true);
                 }
-                messageHistory.put(inHead, inBody);
-                System.out.println("store message in messageHistory");
                 break;
             case NON_IDEMPOTENT_RESPONSE:
-                if (messageHistory.containsKey(inHead)) {
-                    System.out.println("get message from messageHistory");
-                    break;
+                if (receivedResponse.containsKey(getRequestId(inHead))) {
+                    receivedResponse.put(getRequestId(inHead), true);
                 }
-                messageHistory.put(inHead, inBody);
-                System.out.println("store message in messageHistory");
                 break;
             default:
                 break;
@@ -253,7 +270,7 @@ public class CommunicationModule extends Thread {
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
                 printMessageHead(packet, false);
                 receivedResponse.put(requestIdOut, false);
-                new TimerThread(this, socket, packet, requestIdOut, 500l).start();
+                new TimerThread(this, socket, packet, requestIdOut, 5000l).start();
 
                 byte[] bufIn = new byte[MAX_BYTE_SIZE];
                 packet = new DatagramPacket(bufIn, bufIn.length);

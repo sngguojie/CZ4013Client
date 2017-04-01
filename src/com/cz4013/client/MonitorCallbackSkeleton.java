@@ -1,22 +1,20 @@
 package com.cz4013.client;
 
-import javax.management.monitor.Monitor;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
  * Created by danielseetoh on 3/30/17.
  */
 
-public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
+public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
 
 
     private final int MAX_BYTE_SIZE = 1024;
     private final int BYTE_CHUNK_SIZE = 4;
-    private MonitorBroadcast mb;
+    private MonitorCallback mb;
     private CommunicationModule cm;
 
-    public MonitorBroadcastSkeleton(){
+    public MonitorCallbackSkeleton(){
 
     }
 
@@ -43,7 +41,7 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
 
         System.out.print("result ");
         System.out.println(result);
-        String[] StrList = {"MonitorBroadcastProxy", "displayAvailability", result};
+        String[] StrList = {"MonitorCallbackProxy", "displayAvailability", result};
         int[] intList = {1};
         return MarshalModule.marshal(StrList, intList);
     }
@@ -52,7 +50,7 @@ public class MonitorBroadcastSkeleton implements MonitorBroadcast, RemoteObject{
         this.cm = cm;
     }
 
-    public void setMonitorBroadcast(MonitorBroadcast mb){
+    public void setMonitorCallback(MonitorCallback mb){
         this.mb = mb;
     }
 
