@@ -17,15 +17,17 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
     final int MAX_BYTE_SIZE = 1024;
     final int BYTE_CHUNK_SIZE = 4;
     CommunicationModule communicationModule;
+    private String objectReference;
 
-    public BookingSystemProxy (){
+    public BookingSystemProxy (String objectReference){
+        this.objectReference = objectReference;
 
     }
 
     public String getFacilityAvailability (String facilityName, String days){
 
         boolean idempotent = true;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "getFacilityAvailability";
         String[] strings = new String[]{objectReference, methodId, facilityName, days};
         int[] ints = new int[]{};
@@ -38,7 +40,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String bookFacility (String facilityName, int day, int startMinute, int endMinute){
         boolean idempotent = true;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "bookFacility";
         String[] strings = new String[]{objectReference, methodId, facilityName};
         int[] ints = new int[]{day, startMinute, endMinute};
@@ -50,7 +52,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String changeBooking (String confirmID, int offset){
         boolean idempotent = false;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "changeBooking";
         String[] strings = new String[]{objectReference, methodId, confirmID};
         int[] ints = new int[]{offset};
@@ -62,7 +64,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String monitorFacility (String facilityName, String address, int intervalMinutes, int port){
         boolean idempotent = true;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "monitorFacility";
         String[] strings = new String[]{objectReference, methodId, facilityName, address};
         int[] ints = new int[]{intervalMinutes, port};
@@ -74,7 +76,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String listFacilities (){
         boolean idempotent = true;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "listFacilities";
         String[] strings = new String[]{objectReference, methodId};
         int[] ints = new int[]{};
@@ -86,7 +88,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
 
     public String extendBooking (String confirmId, int durationExtension){
         boolean idempotent = false;
-        String objectReference = "BookingSystemSkeleton";
+        String objectReference = this.objectReference;
         String methodId = "extendBooking";
         String[] strings = new String[]{objectReference, methodId, confirmId};
         int[] ints = new int[]{durationExtension};
