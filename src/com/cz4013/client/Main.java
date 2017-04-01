@@ -47,7 +47,7 @@ public class Main {
 
         // give client time to close udp socket
         try {
-            Thread.sleep(500);
+            Thread.sleep(800);
         } catch (InterruptedException e){
             e.printStackTrace();
         }
