@@ -24,15 +24,15 @@ public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
     }
 
     public byte[] handleRequest (byte[] requestBody){
-        Data data = MarshalModule.unmarshal(requestBody);
-        String objectReference = data.getObjectReference();
-        String methodId = data.getMethodId();
-        ArrayList<String> strings = data.getStringList();
-        ArrayList<Integer> ints = data.getIntList();
+        Data inData = MarshalModule.unmarshal(requestBody);
+        String objectReference = inData.getObjectReference();
+        String methodId = inData.getMethodId();
+        ArrayList<String> strings = inData.getStringList();
+        ArrayList<Integer> ints = inData.getIntList();
         String result = "Error MethodID ";
         switch (methodId){
             case "displayAvailability":
-                displayAvailability(data.stringListToString());
+                displayAvailability(inData.stringListToString());
                 result = "Success";
                 break;
             default:
@@ -41,9 +41,13 @@ public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
 
         System.out.print("result ");
         System.out.println(result);
-        String[] StrList = {"MonitorCallbackProxy", "displayAvailability", result};
-        int[] intList = {1};
-        return MarshalModule.marshal(StrList, intList);
+//        String[] StrList = {"MonitorCallbackProxy", "displayAvailability", result};
+//        int[] intList = {1};
+        Data outData = new Data();
+        outData.addString("MonitorCallbackProxy");
+        outData.addString("displayAvailability");
+        outData.addString(result);
+        return MarshalModule.marshal(outData);
     }
 
     public void setCommunicationModule(CommunicationModule cm){
