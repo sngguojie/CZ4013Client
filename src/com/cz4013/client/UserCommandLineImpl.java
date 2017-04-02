@@ -24,6 +24,9 @@ public class UserCommandLineImpl implements UserCommandLine{
         this.port = port;
     }
 
+    /**
+     * User display facility availability
+     */
     public void userDisplayFacilityAvailability(){
         boolean success = true;
         System.out.println("Which facility do you wish to check?");
@@ -58,10 +61,19 @@ public class UserCommandLineImpl implements UserCommandLine{
         }
     }
 
+    /**
+     * gets the BookingSystemProxy to get facility availability from the server
+     * @param facility
+     * @param days
+     * @return
+     */
     public String getFacilityAvailability(String facility, String days){
         return BSP.getFacilityAvailability(facility, days);
     }
 
+    /**
+     * User books facility
+     */
     public void userBookFacility(){
         boolean success = true;
         System.out.println("Which facility do you wish to book?");
@@ -112,11 +124,21 @@ public class UserCommandLineImpl implements UserCommandLine{
         }
     }
 
+    /**
+     * Call the BookingSystemProxy to book the facility on the server
+     * @param facility
+     * @param day
+     * @param startMinute
+     * @param endMinute
+     * @return
+     */
     public String bookFacility(String facility, int day, int startMinute, int endMinute){
         return BSP.bookFacility(facility, day, startMinute, endMinute);
     }
 
-
+    /**
+     * User changes both the start time and end time booking by a certain amount of time
+     */
     public void userChangeBooking(){
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
@@ -143,10 +165,19 @@ public class UserCommandLineImpl implements UserCommandLine{
         }
     }
 
+    /**
+     * Calls the BookingSystemProxy to change the booking on the server
+     * @param confirmationId
+     * @param offset
+     * @return
+     */
     public String changeBooking(String confirmationId, int offset){
         return BSP.changeBooking(confirmationId, offset);
     }
 
+    /**
+     * Users wants to be notified when there are changes to the booking on the server
+     */
     public void userMonitorFacility(){
         boolean success = true;
         System.out.println("Which facility do you wish to monitor?");
@@ -177,19 +208,35 @@ public class UserCommandLineImpl implements UserCommandLine{
         }
     }
 
+    /**
+     * Calls the BookingSystemProxy to put this client on the monitor list
+     * @param facility
+     * @param monitorInterval
+     * @return
+     */
     public String monitorFacility(String facility, int monitorInterval){
         return BSP.monitorFacility(facility, this.address, monitorInterval, this.port);
     }
 
+    /**
+     * User wants to know all facilities
+     */
     public void userListFacilities(){
         String result = listFacilities();
         System.out.println(result);
     }
 
+    /**
+     * Calls the BookingSystemProxy to get all the facilities from the server
+     * @return
+     */
     public String listFacilities(){
         return BSP.listFacilities();
     }
 
+    /**
+     * User wants to extend booking by a certain amount of time, with the start time remaining the same
+     */
     public void userExtendBooking(){
         boolean success = true;
         System.out.println("Enter the booking confirmation Id: ");
@@ -216,16 +263,27 @@ public class UserCommandLineImpl implements UserCommandLine{
         }
     }
 
+    /**
+     * Calls the BookingSystemProxy to extend the booking on the server
+     * @param confirmationId
+     * @param durationExtension
+     * @return
+     */
     public String extendBooking(String confirmationId, int durationExtension){
         return BSP.extendBooking(confirmationId, durationExtension);
 //        return "PASS";
     }
 
+    /**
+     * User quits the interface
+     */
     public void userQuit(){
         System.out.println("Thank you for using our system!");
     }
 
-
+    /**
+     * Keeps getting user input for various actions, until the user chooses to quit
+     */
     public void getUserInput(){
         System.out.println("Welcome to the facility booking system!");
         int input = 10;
@@ -274,6 +332,9 @@ public class UserCommandLineImpl implements UserCommandLine{
         } while (input != 0);
     }
 
+    /**
+     * Prints available options to the user
+     */
     public void printOptions(){
         System.out.println("(1) Get availability of facilities. ");
         System.out.println("(2) Book a facility. ");
@@ -284,10 +345,18 @@ public class UserCommandLineImpl implements UserCommandLine{
         System.out.println("(0) Quit. ");
     }
 
+    /**
+     * Sets the BookingSystemProxy used by this object
+     * @param BSP
+     */
     public void setBookingSystemProxy(BookingSystem BSP){
         this.BSP = BSP;
     }
 
+    /**
+     * Sets the communication module used by this object
+     * @param cm
+     */
     public void setCommunicationModule(CommunicationModule cm){
         this.cm = cm;
     }

@@ -16,6 +16,12 @@ public class Naming {
         this.remoteBinderPort = remoteBinderPort;
     }
 
+    /**
+     * Gets a remote object reference from the remote binder
+     * @param name
+     * @return
+     * @throws IOException
+     */
     public RemoteObject lookup(String name) throws IOException{
         RemoteBinderCommunicationModule rbcm = new RemoteBinderCommunicationModule(clientPortForRemoteBinder, remoteBinderIpAddress, remoteBinderPort);
         rbcm.start();

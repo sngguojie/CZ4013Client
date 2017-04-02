@@ -8,10 +8,20 @@ import java.util.HashMap;
 public class Binder {
     private HashMap<String, RemoteObject> objectReferenceHashMap = new HashMap<String, RemoteObject>();
 
+    /**
+     * add an object reference
+     * @param name
+     * @param objRef
+     */
     public void addObjectReference(String name, RemoteObject objRef){
         this.objectReferenceHashMap.put(name, objRef);
     }
 
+    /**
+     * get an object reference
+     * @param name
+     * @return
+     */
     public RemoteObject getObjectReference(String name){
         return this.objectReferenceHashMap.get(name);
     }

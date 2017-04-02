@@ -24,6 +24,10 @@ public class RemoteBinderCommunicationModule extends Thread{
         this.remoteBinderPort = remoteBinderPort;
     }
 
+    /**
+     * While it is not exited, the communication module will keep running. When exit is set to true,
+     * the socket will be closed and set for reuse.
+     */
     public void run() {
         System.out.println("RemoteBinderCommunicationModule is running.");
         while (!exit){
@@ -116,6 +120,10 @@ public class RemoteBinderCommunicationModule extends Thread{
         return null;
     }
 
+    /**
+     * Closes this communication module
+     * @param exit
+     */
     public void setExit(boolean exit){
         this.exit = exit;
     }

@@ -11,18 +11,27 @@ public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
 
     private final int MAX_BYTE_SIZE = 1024;
     private final int BYTE_CHUNK_SIZE = 4;
-    private MonitorCallback mb;
+    private MonitorCallback mc;
     private CommunicationModule cm;
 
     public MonitorCallbackSkeleton(){
 
     }
 
-    // unmarshall byte array
+    /**
+     * calls monitorCallback to display availability
+     * @param availability
+     */
     public void displayAvailability(String availability){
-        this.mb.displayAvailability(availability);
+        this.mc.displayAvailability(availability);
     }
 
+    /**
+     * handle the calls from server to display the availability when some other client books a facility.
+     * unmarshals the data to display to the user. marshals a response back to communication module.
+     * @param requestBody
+     * @return
+     */
     public byte[] handleRequest (byte[] requestBody){
         Data inData = MarshalModule.unmarshal(requestBody);
         String objectReference = inData.getObjectReference();
@@ -50,12 +59,19 @@ public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
         return MarshalModule.marshal(outData);
     }
 
+    /**
+     * Sets communication module used by this object.
+     */
     public void setCommunicationModule(CommunicationModule cm){
         this.cm = cm;
     }
 
-    public void setMonitorCallback(MonitorCallback mb){
-        this.mb = mb;
+    /**
+     * Sets MonitorCallback used by this object
+     * @param mc
+     */
+    public void setMonitorCallback(MonitorCallback mc){
+        this.mc = mc;
     }
 
 }

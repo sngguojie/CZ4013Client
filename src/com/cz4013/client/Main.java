@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 	// write your code here
 
-        // user should input remote binder ip address, remote binder port
+        // user should input remote binder ip address, remote binder port, own port, ATLEASTONCE/ATMOSTONCE invocation setting
         String remoteBinderIpAddress, atLeastOnce;
         int remoteBinderPort;
         int clientPort;
@@ -43,7 +43,7 @@ public class Main {
         Naming naming = new Naming(clientPortForRemoteBinder, remoteBinderIpAddress, remoteBinderPort);
         BookingSystemProxy bsp = (BookingSystemProxy)naming.lookup("BookingSystem");
 
-        // give client time to close udp socket
+        // give client time to close udp socket due to only having 1 open port 2222
         try {
             Thread.sleep(800);
         } catch (InterruptedException e){
@@ -52,13 +52,13 @@ public class Main {
 
         // instantiate client objects
         CommunicationModule cm = new CommunicationModule(clientPort, atLeastOnceBool);
-        MonitorCallback mb = new MonitorCallbackImpl();
+        MonitorCallback mc = new MonitorCallbackImpl();
         MonitorCallbackSkeleton mbs = new MonitorCallbackSkeleton();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, clientPort);
         Binder binder = new Binder();
 
         // add dependencies
-        mbs.setMonitorCallback(mb);
+        mbs.setMonitorCallback(mc);
         ucl.setBookingSystemProxy(bsp);
         bsp.setCommunicationModule(cm);
         mbs.setCommunicationModule(cm);
