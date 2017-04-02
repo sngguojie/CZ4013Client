@@ -39,18 +39,9 @@ public class Main {
         System.out.println("Using clientPort: " + clientPort);
 
 
-        // instantiate remote binder comms module and retrieve server object reference
-        RemoteBinderCommunicationModule rbcm = new RemoteBinderCommunicationModule(clientPortForRemoteBinder, remoteBinderIpAddress, remoteBinderPort);
-        rbcm.start();
-        String remoteObjectReference = rbcm.sendGetRequest("BookingSystem");
-        String[] RORArray = remoteObjectReference.split(",");
-        String serverIPAddress = RORArray[0];
-        int serverPort = Integer.parseInt(RORArray[1]);
-        String remoteObjectID = RORArray[2];
-        rbcm.setExit(true);
-
-
-
+        // get the booking system proxy by name
+        Naming naming = new Naming(clientPortForRemoteBinder, remoteBinderIpAddress, remoteBinderPort);
+        BookingSystemProxy bsp = (BookingSystemProxy)naming.lookup("BookingSystem");
 
         // give client time to close udp socket
         try {
@@ -60,11 +51,10 @@ public class Main {
         }
 
         // instantiate client objects
-        CommunicationModule cm = new CommunicationModule(clientPort, serverIPAddress, serverPort, atLeastOnceBool);
+        CommunicationModule cm = new CommunicationModule(clientPort, atLeastOnceBool);
         MonitorCallback mb = new MonitorCallbackImpl();
         MonitorCallbackSkeleton mbs = new MonitorCallbackSkeleton();
         UserCommandLineImpl ucl = new UserCommandLineImpl(clientAddress, clientPort);
-        BookingSystemProxy bsp = new BookingSystemProxy(remoteObjectID);
         Binder binder = new Binder();
 
         // add dependencies

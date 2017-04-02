@@ -29,19 +29,19 @@ public class CommunicationModule extends Thread {
     boolean atLeastOnce;
 
 
-    public CommunicationModule(int clientPort, String serverIpAddress, int serverPort, boolean atLeastOnce) throws IOException {
+    public CommunicationModule(int clientPort, boolean atLeastOnce) throws IOException {
         // PORT 2222 is default for NTU computers
 
-        this("CommunicationModule", clientPort, serverIpAddress, serverPort, atLeastOnce);
+        this("CommunicationModule", clientPort, atLeastOnce);
 
     }
 
-    public CommunicationModule(String name, int clientPORT, String serverIpAddress, int serverPort, boolean atLeastOnce) throws IOException {
+    public CommunicationModule(String name, int clientPORT, boolean atLeastOnce) throws IOException {
         super(name);
         socket = new DatagramSocket(new InetSocketAddress(clientPORT));
-        this.serverPort = serverPort;
-
-        serverAddress = InetAddress.getByName(serverIpAddress);
+//        this.serverPort = serverPort;
+//
+//        serverAddress = InetAddress.getByName(serverIpAddress);
         this.atLeastOnce = atLeastOnce;
 
     }

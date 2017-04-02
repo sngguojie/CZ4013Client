@@ -18,10 +18,13 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
     final int BYTE_CHUNK_SIZE = 4;
     CommunicationModule communicationModule;
     private String objectReference;
+    private InetAddress serverIPAddress;
+    private int serverPort;
 
-    public BookingSystemProxy (String objectReference){
+    public BookingSystemProxy (String objectReference, String serverIPAddress, int serverPort) throws IOException{
         this.objectReference = objectReference;
-
+        this.serverIPAddress = InetAddress.getByName(serverIPAddress);
+        this.serverPort = serverPort;
     }
 
     public String getFacilityAvailability (String facilityName, String days){
@@ -35,7 +38,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addString(facilityName);
         outData.addString(days);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     };
@@ -52,7 +55,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addInt(startMinute);
         outData.addInt(endMinute);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     };
@@ -67,7 +70,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addString(confirmId);
         outData.addInt(offset);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     };
@@ -84,7 +87,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addInt(intervalMinutes);
         outData.addInt(port);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     };
@@ -97,7 +100,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addString(objectReference);
         outData.addString(methodId);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     };
@@ -113,7 +116,7 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         outData.addString(confirmId);
         outData.addInt(durationExtension);
         byte[] outBuf = MarshalModule.marshal(outData);
-        byte[] inBuf = cm.sendRequest(idempotent, outBuf);
+        byte[] inBuf = cm.sendRequest(idempotent, outBuf, serverIPAddress, serverPort);
         Data data = MarshalModule.unmarshal(inBuf);
         return data.stringListToString();
     }
