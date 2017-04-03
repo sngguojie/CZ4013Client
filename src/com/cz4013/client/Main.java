@@ -67,7 +67,7 @@ public class Main {
         cm.addObjectReference("BookingSystemProxy", bsp);
         cm.addObjectReference("MonitorCallbackSkeleton", mbs);
         cm.setPrintMessageHead(true);
-        cm.setLossRate(0.2f);
+        cm.setLossRate(0.0f);
 
         // begin terminal user interface
         ucl.getUserInput();

@@ -10,7 +10,9 @@ public class MonitorCallbackImpl implements MonitorCallback {
      * @param availability
      */
     public void displayAvailability(String availability){
+
         System.out.println(availability);
+
     }
 
 }

@@ -23,7 +23,13 @@ public class MonitorCallbackSkeleton implements MonitorCallback, RemoteObject{
      * @param availability
      */
     public void displayAvailability(String availability){
+
         this.mc.displayAvailability(availability);
+
+        if (availability.contains("Expired")){
+            this.cm.setWaitingForPacket(false);
+        }
+
     }
 
     /**

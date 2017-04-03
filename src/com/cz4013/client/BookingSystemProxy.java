@@ -170,7 +170,6 @@ public class BookingSystemProxy implements BookingSystem, RemoteObject {
         Data outData = new Data();
         outData.addString(objectReference);
         outData.addString(methodId);
-        outData.addString(methodId);
         outData.addString(confirmId);
         outData.addInt(durationExtension);
         byte[] outBuf = MarshalModule.marshal(outData);
