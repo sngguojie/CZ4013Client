@@ -14,8 +14,8 @@ import java.util.Random;
 public class CommunicationModule extends Thread {
     protected boolean isRunning = true;
     protected DatagramSocket socket = null;
-    protected HashMap<byte[], byte[]> messageHistory = new HashMap<byte[], byte[]>();
-    protected HashMap<byte[], Boolean> receivedRequest = new HashMap<byte[], Boolean>();
+    protected HashMap<String, byte[]> messageHistory = new HashMap<String, byte[]>();
+    protected HashMap<String, Boolean> receivedRequest = new HashMap<String, Boolean>();
     protected enum MSGTYPE {IDEMPOTENT_REQUEST, NON_IDEMPOTENT_REQUEST, IDEMPOTENT_RESPONSE, NON_IDEMPOTENT_RESPONSE};
     protected InetAddress serverAddress;
     protected int serverPort;
@@ -156,38 +156,39 @@ public class CommunicationModule extends Thread {
         byte[] inHead = Arrays.copyOfRange(payload, 0, 4);
         byte[] inBody = Arrays.copyOfRange(payload, 4, payload.length - 4);
         byte[] outHead, outBody, out;
+        String clientRequestString = getClientRequestString(requestId, address.toString(), port);
 
         switch (messageType) {
             case IDEMPOTENT_REQUEST:
-                if (!this.atLeastOnce && messageHistory.containsKey(inHead)) {
-                    out = messageHistory.get(inHead);
+                if (!this.atLeastOnce && messageHistory.containsKey(clientRequestString)) {
+                    out = messageHistory.get(clientRequestString);
                     sendReponsePacketOut(out, address, port);
                     break;
                 }
-                if (!this.atLeastOnce && receivedRequest.containsKey(inHead)) {
+                if (!this.atLeastOnce && receivedRequest.containsKey(clientRequestString)) {
                     break;
                 }
-                receivedRequest.put(inHead, true);
+                receivedRequest.put(clientRequestString, true);
                 outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
                 outBody = getRemoteObjectResponse(inBody);
                 out = ByteUtils.combineByteArrays(outHead, outBody);
-                messageHistory.put(inHead,out);
+                messageHistory.put(clientRequestString,out);
                 sendReponsePacketOut(out, address, port);
                 break;
             case NON_IDEMPOTENT_REQUEST:
-                if (!this.atLeastOnce && messageHistory.containsKey(inHead)) {
-                    out = messageHistory.get(inHead);
+                if (!this.atLeastOnce && messageHistory.containsKey(clientRequestString)) {
+                    out = messageHistory.get(clientRequestString);
                     sendReponsePacketOut(out, address, port);
                     break;
                 }
-                if (!this.atLeastOnce && receivedRequest.containsKey(inHead)) {
+                if (!this.atLeastOnce && receivedRequest.containsKey(clientRequestString)) {
                     break;
                 }
-                receivedRequest.put(inHead, true);
+                receivedRequest.put(clientRequestString, true);
                 outHead = getResponseHead(MSGTYPE.IDEMPOTENT_RESPONSE, requestId);
                 outBody = getRemoteObjectResponse(inBody);
                 out = ByteUtils.combineByteArrays(outHead, outBody);
-                messageHistory.put(inHead,out);
+                messageHistory.put(clientRequestString,out);
                 sendReponsePacketOut(out, address, port);
                 break;
             case IDEMPOTENT_RESPONSE:
@@ -204,6 +205,17 @@ public class CommunicationModule extends Thread {
                 break;
         }
 
+    }
+
+    /**
+     * Returns a unique string for each client request
+     * @param requestID
+     * @param address
+     * @param port
+     * @return
+     */
+    private String getClientRequestString (int requestID, String address, int port) {
+        return address +" "+Integer.toString(port)+" "+Integer.toString(requestID);
     }
 
     /**
